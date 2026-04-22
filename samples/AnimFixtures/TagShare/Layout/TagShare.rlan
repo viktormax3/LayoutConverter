@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nw4r_layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.2.0" xmlns="http://www.nintendo.co.jp/NW4R/LayoutEditor">
+  <head>
+    <create user="fixture" host="fixture" date="2026-04-22T00:00:00-04:00" source="" />
+    <title />
+    <comment />
+    <generator name="fixture" version="1.0.0" />
+  </head>
+  <body>
+    <animShare>
+      <targetTagName>Intro</targetTagName>
+      <animShareInfo srcPaneName="SrcPane" targetGroupName="TargetGroup" />
+    </animShare>
+    <animTag name="Intro" startFrame="0" endFrame="30" animLoop="OneTime" fileName="Intro" descendingBind="false">
+      <comment />
+      <group name="TargetGroup" />
+    </animTag>
+    <rlan animType="PainSRT" startFrame="0" endFrame="30" convertStartFrame="0" convertEndFrame="30" animLoop="OneTime">
+      <animContent name="SrcPane">
+        <animPainSRTTarget target="TranslateX">
+          <key frame="0" value="0" slope="1" />
+          <key frame="30" value="30" slope="1" />
+        </animPainSRTTarget>
+      </animContent>
+    </rlan>
+  </body>
+</nw4r_layout>

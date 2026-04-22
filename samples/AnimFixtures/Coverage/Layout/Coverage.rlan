@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nw4r_layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.2.0" xmlns="http://www.nintendo.co.jp/NW4R/LayoutEditor">
+  <head>
+    <create user="fixture" host="fixture" date="2026-04-22T00:00:00-04:00" source="" />
+    <title />
+    <comment />
+    <generator name="fixture" version="1.0.0" />
+  </head>
+  <body>
+    <rlan animType="MaterialColor" startFrame="0" endFrame="60" convertStartFrame="0" convertEndFrame="60">
+      <animContent name="MatCoverage">
+        <animMaterialColorTarget target="MatColor0_r">
+          <key frame="0" value="32" slope="0.5" />
+          <key frame="60" value="224" slope="0.5" />
+        </animMaterialColorTarget>
+      </animContent>
+    </rlan>
+    <rlan animType="IndTextureSRT" startFrame="0" endFrame="60" convertStartFrame="0" convertEndFrame="60">
+      <animContent name="MatCoverage">
+        <animIndTexSRTTarget id="1" target="TranslateS">
+          <key frame="0" value="0" slope="0.0166666675" />
+          <key frame="60" value="1" slope="0.0166666675" />
+        </animIndTexSRTTarget>
+      </animContent>
+    </rlan>
+    <rlan animType="TexturePattern" startFrame="0" endFrame="60" convertStartFrame="0" convertEndFrame="60">
+      <animContent name="MatCoverage">
+        <animTexPatternTarget target="Image">
+          <refRes name="TexA" />
+          <refRes name="TexB" />
+          <key xsi:type="StepU16" frame="0" value="0" slopeType="Step" />
+          <key xsi:type="StepU16" frame="30" value="1" slopeType="Step" />
+          <key xsi:type="StepU16" frame="60" value="0" slopeType="Step" />
+        </animTexPatternTarget>
+      </animContent>
+    </rlan>
+    <rlan animType="PainSRT" startFrame="0" endFrame="60" convertStartFrame="0" convertEndFrame="60">
+      <animContent name="PaneCycle">
+        <animPainSRTTarget target="TranslateX" preInfinityType="Cycle" postInfinityType="Cycle">
+          <key frame="20" value="10" slope="1" />
+          <key frame="40" value="30" slope="1" />
+        </animPainSRTTarget>
+      </animContent>
+    </rlan>
+  </body>
+</nw4r_layout>

@@ -1,0 +1,28 @@
+# Personal/reference material
+OldCode/
+
+# Build outputs
+bin/
+obj/
+src/**/bin/
+src/**/obj/
+
+# Local validation outputs
+scratch*/
+samples/**/outputRefactor*/
+
+# Logs and diagnostics
+*.log
+build_diag_latest.log
+cli-build.log
+
+# User/editor local state
+.vs/
+.vscode/
+
+# OS noise
+Thumbs.db
+Desktop.ini
+
+# Legacy local fixture/output names
+samples/**/outputOldCode*/
