@@ -23,12 +23,13 @@ internal static class TgaImageReader
         int pixelDepth = bytes[16];
         byte descriptor = bytes[17];
 
-        if (width <= 0 || height <= 0)
+        if (width <= 0 || height <= 0 || width > 1024 || height > 1024)
         {
             throw new InvalidDataException($"Invalid TGA dimensions in {path}.");
         }
 
         int offset = 18 + idLength;
+        EnsureAvailable(bytes, offset, 0, path);
         var palette = ReadPalette(bytes, ref offset, colorMapType, colorMapStart, colorMapLength, colorMapDepth, path);
         var pixels = new Rgba32[width * height];
         bool rle = imageType is 9 or 10 or 11;
@@ -134,7 +135,7 @@ internal static class TgaImageReader
 
         int index = pixelDepth switch
         {
-            8 => bytes[offset++],
+            8 => ReadByte(bytes, ref offset, path),
             16 => ReadUInt16(bytes, ref offset, path),
             _ => throw new NotSupportedException($"Unsupported TGA palette index depth {pixelDepth} in {path}."),
         };
@@ -169,6 +170,11 @@ internal static class TgaImageReader
 
     private static Rgba32 ReadColor(byte[] bytes, ref int offset, int byteCount, string path)
     {
+        if (byteCount is not (2 or 3 or 4))
+        {
+            throw new NotSupportedException($"Unsupported TGA color depth {byteCount * 8} in {path}.");
+        }
+
         EnsureAvailable(bytes, offset, byteCount, path);
 
         if (byteCount == 2)
@@ -187,6 +193,12 @@ internal static class TgaImageReader
         byte red = bytes[offset++];
         byte alpha = byteCount == 4 ? bytes[offset++] : (byte)255;
         return new Rgba32(red, green, blue, alpha);
+    }
+
+    private static byte ReadByte(byte[] bytes, ref int offset, string path)
+    {
+        EnsureAvailable(bytes, offset, 1, path);
+        return bytes[offset++];
     }
 
     private static ushort ReadUInt16(byte[] bytes, ref int offset, string path)

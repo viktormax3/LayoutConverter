@@ -27,7 +27,7 @@ namespace LayoutConverter.Core.Schema.Rlan
 		// Token: 0x06000007 RID: 7 RVA: 0x000020E0 File Offset: 0x000010E0
 		public Hermite Duplicate(float frame)
 		{
-			Hermite hermite = base.MemberwiseClone() as Hermite;
+			Hermite hermite = (Hermite)base.MemberwiseClone();
 			hermite.frame = frame;
 			return hermite;
 		}

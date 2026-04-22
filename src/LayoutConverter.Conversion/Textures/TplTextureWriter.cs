@@ -35,6 +35,64 @@ internal static class TplTextureWriter
         output.Write(imageData);
     }
 
+    public static void WriteRaw(string destinationPath, Nw4rTgaAdditionalInfo additionalInfo)
+    {
+        ArgumentNullException.ThrowIfNull(additionalInfo);
+
+        bool hasPalette = additionalInfo.PaletteData is { Length: > 0 };
+        int tableOffset = ImageTableOffset;
+        int paletteHeaderOffset = hasPalette ? tableOffset + 8 : 0;
+        int imageHeaderOffset = hasPalette ? paletteHeaderOffset + 12 : tableOffset + 8;
+        int dataOffset = Align(imageHeaderOffset + 36, 32);
+        int paletteDataOffset = 0;
+        int imageDataOffset = dataOffset;
+
+        if (hasPalette)
+        {
+            paletteDataOffset = dataOffset;
+            imageDataOffset = Align(paletteDataOffset + additionalInfo.PaletteData!.Length, 32);
+        }
+
+        using var output = File.Create(destinationPath);
+        Span<byte> header = stackalloc byte[imageDataOffset];
+        WriteUInt32(header, 0x00, Magic);
+        WriteUInt32(header, 0x04, 1);
+        WriteUInt32(header, 0x08, (uint)tableOffset);
+        WriteUInt32(header, tableOffset, (uint)imageHeaderOffset);
+        WriteUInt32(header, tableOffset + 4, (uint)paletteHeaderOffset);
+
+        if (hasPalette)
+        {
+            WriteUInt16(header, paletteHeaderOffset, (ushort)(additionalInfo.PaletteData!.Length / 2));
+            WriteUInt16(header, paletteHeaderOffset + 2, 0);
+            WriteUInt32(header, paletteHeaderOffset + 4, (uint)additionalInfo.PaletteFormat!.Value);
+            WriteUInt32(header, paletteHeaderOffset + 8, (uint)paletteDataOffset);
+        }
+
+        WriteUInt16(header, imageHeaderOffset, (ushort)additionalInfo.Height);
+        WriteUInt16(header, imageHeaderOffset + 2, (ushort)additionalInfo.Width);
+        WriteUInt32(header, imageHeaderOffset + 4, (uint)additionalInfo.TexelFormat);
+        WriteUInt32(header, imageHeaderOffset + 8, (uint)imageDataOffset);
+        WriteUInt32(header, imageHeaderOffset + 12, 0);
+        WriteUInt32(header, imageHeaderOffset + 16, 0);
+        WriteUInt32(header, imageHeaderOffset + 20, additionalInfo.MipmapCount <= 1 || IsIndexedFormat(additionalInfo.TexelFormat) ? 1U : 5U);
+        WriteUInt32(header, imageHeaderOffset + 24, 1);
+        WriteUInt32(header, imageHeaderOffset + 28, 0);
+        header[imageHeaderOffset + 32] = 0;
+        header[imageHeaderOffset + 33] = 0;
+        header[imageHeaderOffset + 34] = checked((byte)Math.Max(0, additionalInfo.MipmapCount - 1));
+        header[imageHeaderOffset + 35] = 0;
+
+        output.Write(header);
+        if (hasPalette)
+        {
+            output.Write(additionalInfo.PaletteData!);
+            WritePadding(output, imageDataOffset - (paletteDataOffset + additionalInfo.PaletteData!.Length));
+        }
+
+        output.Write(additionalInfo.ImageData);
+    }
+
     private static byte[] EncodeImageData(TgaImage image, TexelFormat format)
     {
         return format switch
@@ -46,8 +104,11 @@ internal static class TplTextureWriter
             TexelFormat.RGB565 => EncodeRgb565(image),
             TexelFormat.RGB5A3 => EncodeRgb5A3(image),
             TexelFormat.RGBA8 => EncodeRgba8(image),
-            TexelFormat.CMPR => throw new NotSupportedException("CMPR texture encoding is not implemented yet."),
-            TexelFormat.NW4R_TGA => throw new NotSupportedException("NW4R_TGA passthrough requires NW4R TGA additional information and is not implemented yet."),
+            // TODO: Direct CMPR encoding from ordinary TGA pixels is intentionally deferred.
+            // NW4R_TGA CMPR payloads are already supported through WriteRaw passthrough.
+            TexelFormat.CMPR => throw new NotSupportedException(
+                "Direct CMPR encoding from ordinary TGA pixels is not implemented yet. Use NW4R_TGA passthrough for prepacked CMPR payloads."),
+            TexelFormat.NW4R_TGA => throw new NotSupportedException("NW4R_TGA must be written through additional-information passthrough."),
             _ => throw new NotSupportedException($"Unsupported texel format: {format}."),
         };
     }
@@ -126,9 +187,11 @@ internal static class TplTextureWriter
     {
         var output = new byte[BlockCount(image.Width, 4) * BlockCount(image.Height, 4) * 64];
         int offset = 0;
-        for (int blockY = 0; blockY < image.Height; blockY += 4)
+        int paddedWidth = PaddedSize(image.Width, 4);
+        int paddedHeight = PaddedSize(image.Height, 4);
+        for (int blockY = 0; blockY < paddedHeight; blockY += 4)
         {
-            for (int blockX = 0; blockX < image.Width; blockX += 4)
+            for (int blockX = 0; blockX < paddedWidth; blockX += 4)
             {
                 for (int y = 0; y < 4; y++)
                 {
@@ -157,9 +220,11 @@ internal static class TplTextureWriter
 
     private static void ForBlocks(TgaImage image, int blockWidth, int blockHeight, Action<int, int> write, int stepX = 1)
     {
-        for (int blockY = 0; blockY < image.Height; blockY += blockHeight)
+        int paddedWidth = PaddedSize(image.Width, blockWidth);
+        int paddedHeight = PaddedSize(image.Height, blockHeight);
+        for (int blockY = 0; blockY < paddedHeight; blockY += blockHeight)
         {
-            for (int blockX = 0; blockX < image.Width; blockX += blockWidth)
+            for (int blockX = 0; blockX < paddedWidth; blockX += blockWidth)
             {
                 for (int y = 0; y < blockHeight; y++)
                 {
@@ -174,6 +239,23 @@ internal static class TplTextureWriter
 
     private static int BlockCount(int value, int blockSize)
         => (value + blockSize - 1) / blockSize;
+
+    private static int PaddedSize(int value, int blockSize)
+        => BlockCount(value, blockSize) * blockSize;
+
+    private static int Align(int value, int alignment)
+        => (value + alignment - 1) / alignment * alignment;
+
+    private static bool IsIndexedFormat(int format)
+        => format is 8 or 9 or 10;
+
+    private static void WritePadding(Stream output, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            output.WriteByte(0);
+        }
+    }
 
     private static byte Quantize4(int value)
         => (byte)((value * 15 + 127) / 255);

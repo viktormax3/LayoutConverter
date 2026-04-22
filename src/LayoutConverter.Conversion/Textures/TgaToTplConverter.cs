@@ -11,8 +11,9 @@ public static class TgaToTplConverter
 
         if (format == TexelFormat.NW4R_TGA)
         {
-            throw new NotSupportedException(
-                "NW4R_TGA requires parsing NW4R_Tga additional chunks and direct GX payload passthrough; this path is not implemented yet.");
+            var additionalInfo = Nw4rTgaAdditionalInfoReader.Read(sourcePath);
+            TplTextureWriter.WriteRaw(destinationPath, additionalInfo);
+            return;
         }
 
         var image = TgaImageReader.Read(sourcePath);
