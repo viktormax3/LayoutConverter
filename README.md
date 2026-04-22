@@ -29,6 +29,7 @@ Implemented and fixture-validated:
 - BRLAN `TexturePattern` resource tables.
 - Animation texture reference export with `--cvtr-ref-tex-only`.
 - TGA to TPL for `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, and `RGBA8`.
+- `NW4R_TGA` passthrough for prepacked GX texture payloads, including indexed and CMPR payloads when present in the TGA metadata.
 
 Validated fixture coverage:
 
@@ -138,19 +139,18 @@ The standard TGA conversion path currently supports:
 - Uncompressed and RLE TGA.
 - Top/bottom and left/right image origins.
 - TPL formats `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, and `RGBA8`.
+- `NW4R_TGA` additional-information passthrough for prepacked `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, `RGBA8`, `CMPR`, `C4`, `C8`, and `C14` payloads.
 
 Known texture gaps:
 
 - `CMPR` encoding.
-- Special TGA metadata passthrough formats.
-- Indexed TPL formats `C4`, `C8`, and `C14`.
-- Palette banks for indexed textures.
+- Direct indexed TPL encoding from ordinary color-mapped TGA to `C4`, `C8`, and `C14`.
+- Palette bank generation for ordinary indexed textures.
 - Mipmaps and advanced sampler/LOD data.
 
 Recommended order for texture follow-up work:
 
 - Add small fixtures for `IA4`, `IA8`, `RGB565`, `RGBA8`, RLE, indexed TGA, and non-block-aligned dimensions.
-- Add passthrough support for prepacked texture payloads if real assets require it.
 - Add indexed palettes and mipmaps.
 - Add `CMPR` only when needed, since byte-perfect compression depends on matching block/color selection behavior.
 

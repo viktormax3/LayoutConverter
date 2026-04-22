@@ -32,7 +32,7 @@ namespace LayoutConverter.Core.Schema.Rlan
 		// Token: 0x0600000E RID: 14 RVA: 0x0000219C File Offset: 0x0000119C
 		public AnimTarget Duplicate(Hermite[] newKeys)
 		{
-			AnimTarget animTarget = base.MemberwiseClone() as AnimTarget;
+			AnimTarget animTarget = (AnimTarget)base.MemberwiseClone();
 			animTarget.key = newKeys;
 			return animTarget;
 		}
