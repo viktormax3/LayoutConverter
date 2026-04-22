@@ -1,0 +1,3750 @@
+<?xml version="1.0" encoding="utf-8"?>
+		<xmlyt version="2.1.12BETA" brlyt_version="0008">
+			<tag type="lyt1">
+				<drawnFromMiddle>01</drawnFromMiddle>
+				<size>
+					<width>608.000000</width>
+					<height>456.000000</height>
+				</size>
+			</tag>
+			<tag type="txl1">
+				<entries>
+					<name>Base.tpl</name>
+					<name>dolby_p2_96x48.tpl</name>
+					<name>MyBannerBG.tpl</name>
+					<name>MyBannerCloud.tpl</name>
+					<name>MyBannerKira.tpl</name>
+					<name>MyMapIndSmoke.tpl</name>
+					<name>MyMapStar.tpl</name>
+					<name>MyTitleLogoBanner.tpl</name>
+					<name>MyTitleLogoBannerJPN.tpl</name>
+					<name>MyTitleLogoBannerTico.tpl</name>
+					<name>MyTitleLogoBannerTicoKira.tpl</name>
+					<name>MyTitleLogoBloom.tpl</name>
+					<name>MyTitleLogoR.tpl</name>
+					<name>MyTitleLogoTM.tpl</name>
+					<name>nintendo_112x32.tpl</name>
+				</entries>
+			</tag>
+			<tag type="mat1">
+				<entries name="PicLogo">
+					<colors>
+						<forecolor r="0" g="0" b="0" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyTitleLogoBanner.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="TM">
+					<colors>
+						<forecolor r="100" g="100" b="100" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyTitleLogoTM.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="PicJPNTitle">
+					<colors>
+						<forecolor r="0" g="0" b="0" a="0" />
+						<backcolor r="0" g="0" b="0" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyTitleLogoBannerJPN.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="PicStarS">
+					<colors>
+						<forecolor r="0" g="160" b="255" a="0" />
+						<backcolor r="0" g="160" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyMapStar.tpl">
+						<wrap_s>GX_REPEAT</wrap_s>
+						<wrap_t>GX_REPEAT</wrap_t>
+					</texture>
+					<texture name="MyMapStar.tpl">
+						<wrap_s>GX_REPEAT</wrap_s>
+						<wrap_t>GX_REPEAT</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>40.0000000000</Rotate>
+						<XScale>64.0000000000</XScale>
+						<YScale>36.0000000000</YScale>
+					</TextureSRT>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>32.0000000000</XScale>
+						<YScale>18.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX1</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>0</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD1</TextureCoordinate>
+						<TextureMap>GX_TEXMAP1</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>8</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>0</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_ONE</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicDolby">
+					<colors>
+						<forecolor r="0" g="0" b="0" a="0" />
+						<backcolor r="0" g="0" b="0" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="dolby_p2_96x48.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="PicStarFlash1">
+					<colors>
+						<forecolor r="255" g="150" b="40" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_ONE</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicStarFlash2">
+					<colors>
+						<forecolor r="255" g="150" b="40" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_ONE</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicStarFlash3">
+					<colors>
+						<forecolor r="255" g="150" b="40" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_ONE</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicStarFlash4">
+					<colors>
+						<forecolor r="255" g="150" b="40" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_ONE</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicStarFlash5">
+					<colors>
+						<forecolor r="255" g="150" b="40" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_ONE</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicStarFlash6">
+					<colors>
+						<forecolor r="255" g="150" b="40" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_ONE</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicLogoShine">
+					<colors>
+						<forecolor r="255" g="255" b="255" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyTitleLogoBloom.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>0</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>0</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_ONE</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicFlash">
+					<colors>
+						<forecolor r="0" g="0" b="0" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="Base.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="PicNinLogo">
+					<colors>
+						<forecolor r="0" g="0" b="0" a="0" />
+						<backcolor r="0" g="0" b="0" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="nintendo_112x32.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="R">
+					<colors>
+						<forecolor r="210" g="210" b="210" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyTitleLogoR.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="PicSmoke">
+					<colors>
+						<forecolor r="255" g="255" b="255" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyMapIndSmoke.tpl">
+						<wrap_s>GX_REPEAT</wrap_s>
+						<wrap_t>GX_REPEAT</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_INVSRCALPHA</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicCloud">
+					<colors>
+						<forecolor r="154" g="206" b="255" a="0" />
+						<backcolor r="240" g="240" b="235" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerCloud.tpl">
+						<wrap_s>GX_REPEAT</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>-0.0199999996</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="PicSpace">
+					<colors>
+						<forecolor r="34" g="85" b="212" a="255" />
+						<backcolor r="100" g="190" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerBG.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="PicTicoKira">
+					<colors>
+						<forecolor r="255" g="248" b="78" a="0" />
+						<backcolor r="255" g="248" b="78" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyTitleLogoBannerTicoKira.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_INVSRCALPHA</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicTico">
+					<colors>
+						<forecolor r="0" g="0" b="0" a="0" />
+						<backcolor r="255" g="255" b="255" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyTitleLogoBannerTico.tpl">
+						<wrap_s>GX_CLAMP</wrap_s>
+						<wrap_t>GX_CLAMP</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.0000000000</XTrans>
+						<YTrans>0.0000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>1.0000000000</XScale>
+						<YScale>1.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+				</entries>
+				<entries name="PicStarFlash10">
+					<colors>
+						<forecolor r="255" g="248" b="78" a="0" />
+						<backcolor r="255" g="250" b="170" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_INVSRCALPHA</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicStarFlash7">
+					<colors>
+						<forecolor r="255" g="248" b="78" a="0" />
+						<backcolor r="255" g="250" b="170" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_INVSRCALPHA</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicStarFlash8">
+					<colors>
+						<forecolor r="255" g="248" b="78" a="0" />
+						<backcolor r="255" g="250" b="170" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_INVSRCALPHA</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+				<entries name="PicStarFlash9">
+					<colors>
+						<forecolor r="255" g="248" b="78" a="0" />
+						<backcolor r="255" g="250" b="170" a="255" />
+						<colorReg3 r="255" g="255" b="255" a="255" />
+						<tev_k1 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k2 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k3 r="ff" g="ff" b="ff" a="ff" />
+						<tev_k4 r="ff" g="ff" b="ff" a="ff" />
+					</colors>
+					<texture name="MyBannerKira.tpl">
+						<wrap_s>GX_MIRROR</wrap_s>
+						<wrap_t>GX_MIRROR</wrap_t>
+					</texture>
+					<TextureSRT>
+						<XTrans>0.5000000000</XTrans>
+						<YTrans>0.5000000000</YTrans>
+						<Rotate>0.0000000000</Rotate>
+						<XScale>2.0000000000</XScale>
+						<YScale>2.0000000000</YScale>
+					</TextureSRT>
+					<CoordGen>
+						<tgen_type>GX_TG_MTX2x4</tgen_type>
+						<tgen_src>GX_TG_TEX0</tgen_src>
+						<MatrixSource>GX_TEXMTX0</MatrixSource>
+						<padding>00</padding>
+					</CoordGen>
+					<ChanControl>
+						<ColorMatSource>GX_SRC_VTX</ColorMatSource>
+						<AlphaMatSource>GX_SRC_VTX</AlphaMatSource>
+						<Padding1>00</Padding1>
+						<Padding2>00</Padding2>
+					</ChanControl>
+					<MaterialColor>
+						<red>ff</red>
+						<green>ff</green>
+						<blue>ff</blue>
+						<alpha>ff</alpha>
+					</MaterialColor>
+					<TevSwapModeTable>
+						<OneRed>GX_CH_RED</OneRed>
+						<OneGreen>GX_CH_GREEN</OneGreen>
+						<OneBlue>GX_CH_BLUE</OneBlue>
+						<OneAlpha>GX_CH_ALPHA</OneAlpha>
+						<TwoRed>GX_CH_RED</TwoRed>
+						<TwoGreen>GX_CH_GREEN</TwoGreen>
+						<TwoBlue>GX_CH_BLUE</TwoBlue>
+						<TwoAlpha>GX_CH_ALPHA</TwoAlpha>
+						<ThreeRed>GX_CH_RED</ThreeRed>
+						<ThreeGreen>GX_CH_GREEN</ThreeGreen>
+						<ThreeBlue>GX_CH_BLUE</ThreeBlue>
+						<ThreeAlpha>GX_CH_ALPHA</ThreeAlpha>
+						<FourRed>GX_CH_RED</FourRed>
+						<FourGreen>GX_CH_GREEN</FourGreen>
+						<FourBlue>GX_CH_BLUE</FourBlue>
+						<FourAlpha>GX_CH_ALPHA</FourAlpha>
+					</TevSwapModeTable>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORD0</TextureCoordinate>
+						<TextureMap>GX_TEXMAP0</TextureMap>
+						<Color>GX_COLORNULL</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>2</TevColorCombinerA>
+						<TevColorCombinerB>4</TevColorCombinerB>
+						<TevColorCombinerC>8</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>0</TevColorRegisterID>
+						<TevKColorSelect>1f</TevKColorSelect>
+						<TevAlphaCombinerA>1</TevAlphaCombinerA>
+						<TevAlphaCombinerB>2</TevAlphaCombinerB>
+						<TevAlphaCombinerC>4</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>0</TevAlphaRegisterID>
+						<TevKAlphaSelect>1f</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<TevStage>
+						<TextureCoordinate>GX_TEXCOORDNULL</TextureCoordinate>
+						<TextureMap>GX_TEXMAP_NULL</TextureMap>
+						<Color>GX_COLOR0A0</Color>
+						<Padding1>0</Padding1>
+						<RasSelect>GX_TEV_SWAP0</RasSelect>
+						<TexSelect>GX_TEV_SWAP0</TexSelect>
+						<TevColorCombinerA>f</TevColorCombinerA>
+						<TevColorCombinerB>0</TevColorCombinerB>
+						<TevColorCombinerC>a</TevColorCombinerC>
+						<TevColorCombinerD>f</TevColorCombinerD>
+						<TevColorScale>0</TevColorScale>
+						<TevColorBias>0</TevColorBias>
+						<TevColorOp>0</TevColorOp>
+						<TevColorClamp>0</TevColorClamp>
+						<TevColorRegisterID>1</TevColorRegisterID>
+						<TevKColorSelect>0c</TevKColorSelect>
+						<TevAlphaCombinerA>7</TevAlphaCombinerA>
+						<TevAlphaCombinerB>0</TevAlphaCombinerB>
+						<TevAlphaCombinerC>5</TevAlphaCombinerC>
+						<TevAlphaCombinerD>7</TevAlphaCombinerD>
+						<TevAlphaScale>0</TevAlphaScale>
+						<TevAlphaBias>0</TevAlphaBias>
+						<TevAlphaOp>0</TevAlphaOp>
+						<TevAlphaClamp>0</TevAlphaClamp>
+						<TevAlphaRegisterID>1</TevAlphaRegisterID>
+						<TevKAlphaSelect>1c</TevKAlphaSelect>
+						<IndirectTextureID>00</IndirectTextureID>
+						<IndirectTextureFormat>0</IndirectTextureFormat>
+						<IndirectTextureBias>7</IndirectTextureBias>
+						<IndirectTextureMatrixID>0</IndirectTextureMatrixID>
+						<IndirectTextureWrapS>0</IndirectTextureWrapS>
+						<IndirectTextureWrapT>0</IndirectTextureWrapT>
+						<IndirectTextureAddPrevious>0</IndirectTextureAddPrevious>
+						<IndirectTextureUTClod>0</IndirectTextureUTClod>
+						<IndirectTextureA>0</IndirectTextureA>
+						<Padding2>0</Padding2>
+						<Padding3>0</Padding3>
+						<Padding4>0</Padding4>
+					</TevStage>
+					<AlphaCompare>
+						<comp0>GX_ALWAYS</comp0>
+						<comp1>GX_ALWAYS</comp1>
+						<aop>GX_AOP_AND</aop>
+						<ref0>00</ref0>
+						<ref1>00</ref1>
+					</AlphaCompare>
+					<BlendMode>
+						<type>GX_BM_BLEND</type>
+						<src_fact>GX_BL_SRCALPHA</src_fact>
+						<dst_fact>GX_BL_INVSRCALPHA</dst_fact>
+						<op>GX_LO_COPY</op>
+					</BlendMode>
+				</entries>
+			</tag>
+			<tag type="pan1" name="RootPane" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>0.0000000000000000000000000</x>
+					<y>0.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>608.000000</width>
+					<height>456.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pan1" name="BannerBG" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>01</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>0.0000000000000000000000000</x>
+					<y>0.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pan1" name="BG" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>0.0000000000000000000000000</x>
+					<y>0.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pic1" name="PicSpace" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Top" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>0.0000000000000000000000000</x>
+					<y>228.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>812.000000</width>
+					<height>378.000000</height>
+				</size>
+				<material name="PicSpace" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pae1" />
+			<tag type="pan1" name="Star" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>-0.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pic1" name="PicStarS" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Bottom" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>-150.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>810.000000</width>
+					<height>380.000000</height>
+				</size>
+				<material name="PicStarS" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pae1" />
+			<tag type="pan1" name="Cloud" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>-0.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pic1" name="PicCloud" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>31.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.2000000477</x>
+					<y>1.2000000477</y>
+				</scale>
+				<size>
+					<width>812.000000</width>
+					<height>400.000000</height>
+				</size>
+				<material name="PicCloud" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pae1" />
+			<tag type="pae1" />
+			<tag type="pan1" name="SMGTitleLogo" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>01</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>0.0000000000000000000000000</x>
+					<y>47.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.2000000477</x>
+					<y>1.2000000477</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pan1" name="TitleLogo" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>-81.9636459350585937500000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pic1" name="PicTicoKira" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>f0</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>149.0000000000000000000000000</x>
+					<y>123.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.8000000119</x>
+					<y>0.8000000119</y>
+				</scale>
+				<size>
+					<width>96.000000</width>
+					<height>96.000000</height>
+				</size>
+				<material name="PicTicoKira" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicTico" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>149.0000000000000000000000000</x>
+					<y>123.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.8000000119</x>
+					<y>0.8000000119</y>
+				</scale>
+				<size>
+					<width>80.000000</width>
+					<height>80.000000</height>
+				</size>
+				<material name="PicTico" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicLogo" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>81.9636459350585937500000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.8000000119</x>
+					<y>0.8000000119</y>
+				</scale>
+				<size>
+					<width>440.000000</width>
+					<height>216.000000</height>
+				</size>
+				<material name="PicLogo" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicJPNTitle" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>-15.5430917739868164062500000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.8000000119</x>
+					<y>0.8000000119</y>
+				</scale>
+				<size>
+					<width>288.000000</width>
+					<height>32.000000</height>
+				</size>
+				<material name="PicJPNTitle" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicLogoShine" userdata="">
+				<visible>00</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>00</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>80.9636154174804687500000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>3.5000000000</x>
+					<y>3.5000000000</y>
+				</scale>
+				<size>
+					<width>288.000000</width>
+					<height>176.000000</height>
+				</size>
+				<material name="PicLogoShine" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="TM" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>69.1666564941406250000000000</x>
+					<y>31.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.8000000119</x>
+					<y>0.8000000119</y>
+				</scale>
+				<size>
+					<width>24.000000</width>
+					<height>16.000000</height>
+				</size>
+				<material name="TM" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="R" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>69.0000000000000000000000000</x>
+					<y>32.6336593627929687500000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.8000000119</x>
+					<y>0.8000000119</y>
+				</scale>
+				<size>
+					<width>24.000000</width>
+					<height>16.000000</height>
+				</size>
+				<material name="R" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pae1" />
+			<tag type="pan1" name="PicStarFlash" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000001758337049295732868</x>
+					<y>-82.0000228881835937500000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pic1" name="PicStarFlash1" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-40.0000000000000000000000000</x>
+					<y>132.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>32.000000</width>
+					<height>32.000000</height>
+				</size>
+				<material name="PicStarFlash1" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash2" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>71.6666717529296875000000000</x>
+					<y>129.4845886230468750000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>32.000000</width>
+					<height>32.000000</height>
+				</size>
+				<material name="PicStarFlash2" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash3" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-114.1666412353515625000000000</x>
+					<y>86.1171646118164062500000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>32.000000</width>
+					<height>32.000000</height>
+				</size>
+				<material name="PicStarFlash3" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash4" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>19.1666679382324218750000000</x>
+					<y>87.6531829833984375000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>32.000000</width>
+					<height>32.000000</height>
+				</size>
+				<material name="PicStarFlash4" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash5" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-72.0000000000000000000000000</x>
+					<y>28.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>32.000000</width>
+					<height>32.000000</height>
+				</size>
+				<material name="PicStarFlash5" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash6" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>35.0000000000000000000000000</x>
+					<y>30.1700305938720703125000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>32.000000</width>
+					<height>32.000000</height>
+				</size>
+				<material name="PicStarFlash6" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash7" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>139.3000030517578125000000000</x>
+					<y>154.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>16.000000</width>
+					<height>16.000000</height>
+				</size>
+				<material name="PicStarFlash7" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash8" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>117.3000030517578125000000000</x>
+					<y>134.5000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>16.000000</width>
+					<height>16.000000</height>
+				</size>
+				<material name="PicStarFlash8" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash9" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>164.1666870117187500000000000</x>
+					<y>88.6666946411132812500000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>16.000000</width>
+					<height>16.000000</height>
+				</size>
+				<material name="PicStarFlash9" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicStarFlash10" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>175.3999938964843750000000000</x>
+					<y>94.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>0.0000000000</x>
+					<y>0.0000000000</y>
+				</scale>
+				<size>
+					<width>16.000000</width>
+					<height>16.000000</height>
+				</size>
+				<material name="PicStarFlash10" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pae1" />
+			<tag type="pae1" />
+			<tag type="pan1" name="Effrct" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>0.0000000000000000000000000</x>
+					<y>0.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pic1" name="PicSmoke" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Bottom" />
+				<alpha>00</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-0.0000000000000000000000000</x>
+					<y>-150.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>608.000000</width>
+					<height>380.000000</height>
+				</size>
+				<material name="PicSmoke" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicFlash" userdata="">
+				<visible>00</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>00</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>0.0000000000000000000000000</x>
+					<y>0.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>608.000000</width>
+					<height>456.000000</height>
+				</size>
+				<material name="PicFlash" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pae1" />
+			<tag type="pan1" name="Logo" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>00</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>0.0000000000000000000000000</x>
+					<y>0.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>30.000000</width>
+					<height>40.000000</height>
+				</size>
+			</tag>
+			<tag type="pas1" />
+			<tag type="pic1" name="PicDolby" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>01</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>229.0000000000000000000000000</x>
+					<y>-77.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>96.000000</width>
+					<height>48.000000</height>
+				</size>
+				<material name="PicDolby" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pic1" name="PicNinLogo" userdata="">
+				<visible>01</visible>
+				<WidescreenAffected>00</WidescreenAffected>
+				<flag>01</flag>
+				<origin x="Center" y="Center" />
+				<alpha>ff</alpha>
+				<padding>00</padding>
+				<translate>
+					<x>-220.6699829101562500000000000</x>
+					<y>177.0000000000000000000000000</y>
+					<z>0.0000000000000000000000000</z>
+				</translate>
+				<rotate>
+					<x>0.00000000000000000000</x>
+					<y>0.00000000000000000000</y>
+					<z>0.00000000000000000000</z>
+				</rotate>
+				<scale>
+					<x>1.0000000000</x>
+					<y>1.0000000000</y>
+				</scale>
+				<size>
+					<width>112.000000</width>
+					<height>32.000000</height>
+				</size>
+				<material name="PicNinLogo" />
+				<colors>
+					<vtxColorTL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorTR r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBL r="ff" g="ff" b="ff" a="ff" />
+					<vtxColorBR r="ff" g="ff" b="ff" a="ff" />
+				</colors>
+				<coordinates>
+					<set>
+						<coordTL s="0.000000" t="0.000000" />
+						<coordTR s="1.000000" t="0.000000" />
+						<coordBL s="0.000000" t="1.000000" />
+						<coordBR s="1.000000" t="1.000000" />
+					</set>
+				</coordinates>
+			</tag>
+			<tag type="pae1" />
+			<tag type="pae1" />
+			<tag type="grp1" name="RootGroup" />
+			<tag type="grs1" />
+			<tag type="grp1" name="JPN">
+				<subs>
+					<sub>PicJPNTitle</sub>
+					<sub>R</sub>
+				</subs>
+			</tag>
+			<tag type="grp1" name="ENG">
+				<subs>
+					<sub>TM</sub>
+				</subs>
+			</tag>
+			<tag type="grp1" name="GER">
+				<subs>
+					<sub>TM</sub>
+				</subs>
+			</tag>
+			<tag type="grp1" name="FRA">
+				<subs>
+					<sub>TM</sub>
+				</subs>
+			</tag>
+			<tag type="grp1" name="SPA">
+				<subs>
+					<sub>TM</sub>
+				</subs>
+			</tag>
+			<tag type="grp1" name="ITA">
+				<subs>
+					<sub>TM</sub>
+				</subs>
+			</tag>
+			<tag type="grp1" name="NED">
+				<subs>
+					<sub>TM</sub>
+				</subs>
+			</tag>
+			<tag type="grp1" name="CHN">
+				<subs>
+					<sub>TM</sub>
+				</subs>
+			</tag>
+			<tag type="gre1" />
+		</xmlyt>

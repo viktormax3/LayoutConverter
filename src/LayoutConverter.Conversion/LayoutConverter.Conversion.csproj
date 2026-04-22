@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>LayoutConverter.Conversion</RootNamespace>
+    <AssemblyName>LayoutConverter.Conversion</AssemblyName>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LayoutConverter.Core\LayoutConverter.Core.csproj" />
+  </ItemGroup>
+</Project>

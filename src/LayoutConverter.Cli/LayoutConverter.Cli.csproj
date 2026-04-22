@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>LayoutConverter.Cli</RootNamespace>
+    <AssemblyName>layout-converter</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LayoutConverter.Conversion\LayoutConverter.Conversion.csproj" />
+    <ProjectReference Include="..\LayoutConverter.Core\LayoutConverter.Core.csproj" />
+  </ItemGroup>
+</Project>

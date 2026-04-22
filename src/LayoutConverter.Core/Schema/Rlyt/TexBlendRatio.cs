@@ -1,0 +1,21 @@
+﻿using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+namespace LayoutConverter.Core.Schema.Rlyt
+{
+	// Token: 0x02000047 RID: 71
+	[XmlType(Namespace = "http://www.nintendo.co.jp/NW4R/LayoutEditor")]
+	[DesignerCategory("code")]
+	[DebuggerStepThrough]
+	[GeneratedCode("xsd", "2.0.50727.42")]
+	[Serializable]
+	public class TexBlendRatio
+	{
+		// Token: 0x0400013D RID: 317
+		[XmlAttribute]
+		public byte color;
+	}
+}
