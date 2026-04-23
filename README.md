@@ -142,7 +142,9 @@ foreach ($p in $pairs) {
 
 ## Supported Texture Path
 
-The standard TGA conversion path currently supports:
+Texture support is scoped to the layout conversion pipeline. The project does not try to replace the full original TGA utility library; it only implements the behavior needed to export layout-referenced textures to TPL.
+
+The standard layout texture path currently supports:
 
 - Truecolor, grayscale, and color-mapped TGA.
 - Uncompressed and RLE TGA.
@@ -150,18 +152,21 @@ The standard TGA conversion path currently supports:
 - TPL formats `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, and `RGBA8`.
 - `NW4R_TGA` additional-information passthrough for prepacked `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, `RGBA8`, `CMPR`, `C4`, `C8`, and `C14` payloads.
 
-Known texture gaps:
+Known texture gaps that are secondary to the main RLYT/RLAN converter scope:
 
-- `CMPR` encoding.
+- Direct `CMPR` encoding from ordinary TGA pixels.
 - Direct indexed TPL encoding from ordinary color-mapped TGA to `C4`, `C8`, and `C14`.
 - Palette bank generation for ordinary indexed textures.
 - Mipmaps and advanced sampler/LOD data.
 
-Recommended order for texture follow-up work:
+These are intentionally not treated as blockers for the primary layout/animation workflow unless a real layout fixture depends on them. `NW4R_TGA` passthrough already covers prepacked indexed and CMPR texture payloads used by layout assets.
+
+Recommended order for optional texture follow-up work:
 
 - Add small fixtures for `IA4`, `IA8`, `RGB565`, `RGBA8`, RLE, indexed TGA, and non-block-aligned dimensions.
-- Add indexed palettes and mipmaps.
-- Add `CMPR` only when needed, since byte-perfect compression depends on matching block/color selection behavior.
+- Add direct indexed palettes only if a real layout conversion needs them outside `NW4R_TGA`.
+- Add direct `CMPR` only when needed, since byte-perfect compression depends on matching block/color selection behavior.
+- Add mipmaps only if they appear in a layout fixture that is expected to round-trip through the converter.
 
 ## Notes
 
