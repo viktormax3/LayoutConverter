@@ -99,5 +99,9 @@ public sealed class ConversionPipeline
         log.WriteLine("      --omit-samekey-all     Drop duplicate keys across all tags");
         log.WriteLine("      --bake-infinity        Bake infinity area key");
         log.WriteLine("      --cvtr-ref-tex-only    Export only referenced textures");
+        log.WriteLine("  -- Reverse/inspection routes --");
+        log.WriteLine("      .tpl                    Decode supported TPL textures to TGA");
+        log.WriteLine("      .brlan                  Reconstruct RLAN XML");
+        log.WriteLine("      .brlyt                  Reconstruct partial RLYT XML");
     }
 }
