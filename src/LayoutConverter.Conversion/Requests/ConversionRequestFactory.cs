@@ -45,8 +45,26 @@ public static class ConversionRequestFactory
                     inputPath,
                     ConverterPathHelper.BuildBinaryOutputFilePath(outputDirectory, inputPath),
                     options.Execution,
-                    options.XmlLoad,
-                    options.Animation),
+                options.XmlLoad,
+                options.Animation),
+
+            ConverterFileType.Texture => new TextureConversionRequest(
+                inputPath,
+                ConverterPathHelper.BuildTextureOutputFilePath(outputDirectory, inputPath),
+                options.Execution,
+                options.XmlLoad),
+
+            ConverterFileType.BinaryAnimation => new BinaryAnimationConversionRequest(
+                inputPath,
+                ConverterPathHelper.BuildRlanOutputFilePath(outputDirectory, inputPath),
+                options.Execution,
+                options.XmlLoad),
+
+            ConverterFileType.BinaryLayout => new BinaryLayoutConversionRequest(
+                inputPath,
+                ConverterPathHelper.BuildRlytOutputFilePath(outputDirectory, inputPath),
+                options.Execution,
+                options.XmlLoad),
 
             _ => null,
         };

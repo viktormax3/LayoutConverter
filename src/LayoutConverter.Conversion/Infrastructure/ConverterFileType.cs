@@ -12,4 +12,7 @@ public enum ConverterFileType
     MaterialColorAnimation,
     TextureSrtAnimation,
     TexturePatternAnimation,
+    Texture,
+    BinaryLayout,
+    BinaryAnimation,
 }

@@ -7,7 +7,7 @@ The project currently focuses on the RLYT/BRLYT and RLAN/BRLAN workflows, plus T
 ## Repository Layout
 
 - `src/LayoutConverter.Core`: XML schema models, document loaders, and binary writers.
-- `src/LayoutConverter.Conversion`: conversion pipeline, routing, validation, and external resource export.
+- `src/LayoutConverter.Conversion`: conversion pipeline, routing, validation, and external resource export/import.
 - `src/LayoutConverter.Cli`: console entry point.
 - `src/LayoutConverter.Gui`: minimal Windows Forms front end over the same conversion pipeline.
 - `samples/Base`: source fixtures.
@@ -31,6 +31,9 @@ Implemented and fixture-validated:
 - Animation texture reference export with `--cvtr-ref-tex-only`.
 - TGA to TPL for `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, and `RGBA8`.
 - `NW4R_TGA` passthrough for prepacked GX texture payloads, including indexed and CMPR payloads when present in the TGA metadata.
+- TPL to TGA for non-indexed TPL formats `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, and `RGBA8`.
+- BRLAN to RLAN XML reconstruction for `pat1`, `pah1`, and `pai1` animation data.
+- BRLYT to partial RLYT XML reconstruction for `lyt1`, `txl1`, `fnl1`, pane hierarchy, picture/text/window/bounding panes, groups, and common material data.
 
 Validated fixture coverage:
 
@@ -59,7 +62,7 @@ Minimal GUI:
 dotnet run --project src\LayoutConverter.Gui\LayoutConverter.Gui.csproj
 ```
 
-The GUI accepts `.rlyt`, `.xmlyt`, `.rlan`, and `.xmlan` files or folders, writes to a selected output directory, and exposes the common layout/animation options without going through the CLI.
+The GUI accepts `.rlyt`, `.xmlyt`, `.rlan`, `.xmlan`, and `.tpl` files or folders, writes to a selected output directory, and exposes the common layout/animation options without going through the CLI.
 
 Legacy-style positional output:
 
@@ -91,6 +94,24 @@ Single synthetic animation output:
 dotnet src\LayoutConverter.Cli\bin\Debug\net8.0\layout-converter.dll samples\AnimFixtures\Coverage\Layout\Coverage.rlan scratch_anim
 ```
 
+TPL to TGA:
+
+```powershell
+dotnet src\LayoutConverter.Cli\bin\Debug\net8.0\layout-converter.dll samples\Expected\timg\Base.tpl scratch_reverse
+```
+
+BRLAN to RLAN:
+
+```powershell
+dotnet src\LayoutConverter.Cli\bin\Debug\net8.0\layout-converter.dll samples\AnimFixtures\Coverage\expected_normal\anim\Coverage.brlan scratch_reverse
+```
+
+BRLYT to partial RLYT:
+
+```powershell
+dotnet src\LayoutConverter.Cli\bin\Debug\net8.0\layout-converter.dll samples\Expected\blyt\Banner.brlyt scratch_reverse
+```
+
 ## Output Layout
 
 RLYT conversion writes:
@@ -103,6 +124,18 @@ RLYT conversion writes:
 RLAN conversion writes:
 
 - `DESTDIR/anim/*.brlan`
+
+TPL conversion writes:
+
+- `DESTDIR/*.tga`
+
+BRLAN conversion writes:
+
+- `DESTDIR/*.rlan`
+
+BRLYT conversion writes:
+
+- `DESTDIR/*.rlyt`
 
 ## Validation Snippets
 
@@ -151,13 +184,23 @@ The standard layout texture path currently supports:
 - Top/bottom and left/right image origins.
 - TPL formats `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, and `RGBA8`.
 - `NW4R_TGA` additional-information passthrough for prepacked `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, `RGBA8`, `CMPR`, `C4`, `C8`, and `C14` payloads.
+- Reverse TPL decoding to uncompressed 32-bit TGA for `I4`, `I8`, `IA4`, `IA8`, `RGB565`, `RGB5A3`, and `RGBA8`.
 
 Known texture gaps that are secondary to the main RLYT/RLAN converter scope:
 
 - Direct `CMPR` encoding from ordinary TGA pixels.
+- Reverse `CMPR` decoding to TGA.
 - Direct indexed TPL encoding from ordinary color-mapped TGA to `C4`, `C8`, and `C14`.
+- Reverse indexed TPL decoding to TGA.
 - Palette bank generation for ordinary indexed textures.
 - Mipmaps and advanced sampler/LOD data.
+
+Known reverse-conversion gaps:
+
+- BRLYT `mat1` currently reconstructs material names, black/white color registers, texture maps, texture matrices, and texture coordinate generators. Full TEV/Revo payload reconstruction is still pending.
+- BRLYT `txt1`, `wnd1`, and `bnd1` have basic payload readers. They still need broader fixture coverage.
+- BRLYT `usd1` payloads are not reconstructed yet.
+- BRLYT to RLYT output is intended as a structural recovery stage until full material TEV/Revo and user data readers are implemented.
 
 These are intentionally not treated as blockers for the primary layout/animation workflow unless a real layout fixture depends on them. `NW4R_TGA` passthrough already covers prepacked indexed and CMPR texture payloads used by layout assets.
 

@@ -213,7 +213,7 @@ public sealed class MainForm : Form
         using var dialog = new OpenFileDialog
         {
             Title = "Select layout or animation files",
-            Filter = "Layout files|*.rlyt;*.rlan;*.rlpa;*.rlvi;*.rlvc;*.rlmc;*.rlts;*.rltp|All files|*.*",
+            Filter = "LayoutConverter files|*.rlyt;*.rlan;*.rlpa;*.rlvi;*.rlvc;*.rlmc;*.rlts;*.rltp;*.tpl;*.brlyt;*.brlan|All files|*.*",
             Multiselect = true,
         };
 

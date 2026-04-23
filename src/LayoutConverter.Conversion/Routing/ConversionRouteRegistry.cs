@@ -11,6 +11,10 @@ public sealed class ConversionRouteRegistry
         {
             new LayoutConversionRouteHandler(),
             new AnimationConversionRouteHandler(),
+            new BinaryLayoutConversionRouteHandler(),
+            new BinaryAnimationConversionRouteHandler(),
+            new TextureConversionRouteHandler(),
+            new BinaryInspectionRouteHandler(),
         })
     {
     }

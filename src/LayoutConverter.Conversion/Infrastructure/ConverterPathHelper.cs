@@ -19,6 +19,9 @@ public static class ConverterPathHelper
         [".rlmc"] = ConverterFileType.MaterialColorAnimation,
         [".rlts"] = ConverterFileType.TextureSrtAnimation,
         [".rltp"] = ConverterFileType.TexturePatternAnimation,
+        [".tpl"] = ConverterFileType.Texture,
+        [".brlyt"] = ConverterFileType.BinaryLayout,
+        [".brlan"] = ConverterFileType.BinaryAnimation,
     };
 
     private static readonly Dictionary<uint, string> SectionDirectories = new()
@@ -71,6 +74,18 @@ public static class ConverterPathHelper
             outputDirectory,
             prefixPart + Path.GetFileNameWithoutExtension(sourceFilePath) + suffixPart + binaryExtension);
     }
+
+    public static string BuildTextureOutputFilePath(string outputDirectory, string sourceFilePath)
+        => Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(sourceFilePath) + ".tga");
+
+    public static string BuildBinaryInspectionOutputFilePath(string outputDirectory, string sourceFilePath)
+        => Path.Combine(outputDirectory, Path.GetFileName(sourceFilePath) + ".sections.txt");
+
+    public static string BuildRlanOutputFilePath(string outputDirectory, string sourceFilePath)
+        => Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(sourceFilePath) + ".rlan");
+
+    public static string BuildRlytOutputFilePath(string outputDirectory, string sourceFilePath)
+        => Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(sourceFilePath) + ".rlyt");
 
     public static bool IsValidResourceName(string value)
         => !ValidResourceNamePattern.IsMatch(value);
