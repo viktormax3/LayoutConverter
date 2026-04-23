@@ -1,6 +1,6 @@
 # LayoutConverter
 
-LayoutConverter is a .NET 8 command-line tool for converting layout XML assets into binary layout, animation, and texture resources.
+LayoutConverter is a .NET 8 tool for converting layout XML assets into binary layout, animation, and texture resources. It includes both a command-line entry point and a small Windows GUI.
 
 The project currently focuses on the RLYT/BRLYT and RLAN/BRLAN workflows, plus TGA to TPL texture conversion. The implementation is fixture-driven: sample inputs and expected binary outputs live in `samples/` so changes can be checked byte-for-byte.
 
@@ -9,6 +9,7 @@ The project currently focuses on the RLYT/BRLYT and RLAN/BRLAN workflows, plus T
 - `src/LayoutConverter.Core`: XML schema models, document loaders, and binary writers.
 - `src/LayoutConverter.Conversion`: conversion pipeline, routing, validation, and external resource export.
 - `src/LayoutConverter.Cli`: console entry point.
+- `src/LayoutConverter.Gui`: minimal Windows Forms front end over the same conversion pipeline.
 - `samples/Base`: source fixtures.
 - `samples/Expected`: expected outputs for the main Banner fixture.
 - `samples/AnimFixtures`: focused animation fixtures for BRLAN edge cases.
@@ -41,16 +42,24 @@ Validated fixture coverage:
 ## Build
 
 ```powershell
-dotnet build LayoutConverter.sln -v:minimal
+dotnet build LayoutConverter.sln -m:1 -v:minimal
 ```
 
-If your local .NET SDK has workload resolver issues, project-level builds are usually enough:
+If your local .NET SDK has workload resolver or parallel build issues, project-level builds are usually enough:
 
 ```powershell
 dotnet build src\LayoutConverter.Conversion\LayoutConverter.Conversion.csproj -v:minimal
 ```
 
 ## Usage
+
+Minimal GUI:
+
+```powershell
+dotnet run --project src\LayoutConverter.Gui\LayoutConverter.Gui.csproj
+```
+
+The GUI accepts `.rlyt`, `.xmlyt`, `.rlan`, and `.xmlan` files or folders, writes to a selected output directory, and exposes the common layout/animation options without going through the CLI.
 
 Legacy-style positional output:
 

@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LayoutConverter.Conversion\LayoutConverter.Conversion.csproj" />
-    <ProjectReference Include="..\LayoutConverter.Core\LayoutConverter.Core.csproj" />
+    <ProjectReference Include="..\LayoutConverter.Conversion\LayoutConverter.Conversion.csproj" SetTargetFramework="TargetFramework=net8.0" />
   </ItemGroup>
 </Project>
