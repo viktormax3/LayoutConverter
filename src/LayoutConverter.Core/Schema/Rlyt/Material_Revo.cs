@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlyt
 {
-	// Token: 0x0200004A RID: 74
+	
 	[DebuggerStepThrough]
 	[GeneratedCode("xsd", "2.0.50727.42")]
 	[DesignerCategory("code")]
@@ -14,7 +14,7 @@ namespace LayoutConverter.Core.Schema.Rlyt
 	[Serializable]
 	public class Material_Revo
 	{
-		// Token: 0x0600004B RID: 75 RVA: 0x000027EC File Offset: 0x000017EC
+		
 		public Material_Revo()
 		{
 			this.tevStageNum = 1;
@@ -22,71 +22,54 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			this.displayFace = DisplayFace.Both;
 		}
 
-		// Token: 0x0400014F RID: 335
-		[XmlElement("channelControl")]
+[XmlElement("channelControl")]
 		public Material_RevoChannelControl[] channelControl;
 
-		// Token: 0x04000150 RID: 336
-		public Color4 matColReg;
+public Color4 matColReg;
 
-		// Token: 0x04000151 RID: 337
-		[XmlElement("tevColReg")]
+[XmlElement("tevColReg")]
 		public ColorS10_4[] tevColReg;
 
-		// Token: 0x04000152 RID: 338
-		[XmlElement("tevConstReg")]
+[XmlElement("tevConstReg")]
 		public Color4[] tevConstReg;
 
-		// Token: 0x04000153 RID: 339
-		[XmlElement("texMap")]
+[XmlElement("texMap")]
 		public TexMap[] texMap;
 
-		// Token: 0x04000154 RID: 340
-		[XmlElement("texMatrix")]
+[XmlElement("texMatrix")]
 		public TexMatrix[] texMatrix;
 
-		// Token: 0x04000155 RID: 341
-		[XmlElement("texCoordGen")]
+[XmlElement("texCoordGen")]
 		public TexCoordGen[] texCoordGen;
 
-		// Token: 0x04000156 RID: 342
-		[XmlElement("swapTable")]
+[XmlElement("swapTable")]
 		public Material_RevoSwapTable[] swapTable;
 
-		// Token: 0x04000157 RID: 343
-		[XmlElement("indirectMatrix")]
+[XmlElement("indirectMatrix")]
 		public TexMatrix[] indirectMatrix;
 
-		// Token: 0x04000158 RID: 344
-		[XmlElement("indirectStage")]
+[XmlElement("indirectStage")]
 		public Material_RevoIndirectStage[] indirectStage;
 
-		// Token: 0x04000159 RID: 345
-		[XmlElement("tevStage")]
+[XmlElement("tevStage")]
 		public Material_RevoTevStage[] tevStage;
 
-		// Token: 0x0400015A RID: 346
-		public Material_RevoAlphaCompare alphaCompare;
+public Material_RevoAlphaCompare alphaCompare;
 
-		// Token: 0x0400015B RID: 347
-		public Material_RevoBlendMode blendMode;
+public Material_RevoBlendMode blendMode;
 
-		// Token: 0x0400015C RID: 348
-		[XmlAttribute]
+[XmlAttribute]
 		public string name;
 
-		// Token: 0x0400015D RID: 349
-		[XmlAttribute]
+[XmlAttribute]
 		[DefaultValue(typeof(byte), "1")]
 		public byte tevStageNum;
 
-		// Token: 0x0400015E RID: 350
-		[DefaultValue(typeof(byte), "0")]
+[DefaultValue(typeof(byte), "0")]
 		[XmlAttribute]
 		public byte indirectStageNum;
 
-		// Token: 0x0400015F RID: 351
-		[DefaultValue(DisplayFace.Both)]
+[DefaultValue(DisplayFace.Both)]
 		[XmlAttribute]
 		public DisplayFace displayFace;
 	}

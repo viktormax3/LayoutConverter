@@ -67,7 +67,12 @@ public sealed class BrlytDocumentContext
             return 0;
         }
 
-        return _materialIndicesByName.TryGetValue(materialName, out int index)
+        if (_materialIndicesByName.TryGetValue(materialName, out int index))
+        {
+            return index;
+        }
+
+        return TryParseLogicalIndex(materialName, "Material", out index)
             ? index
             : 0;
     }
@@ -180,20 +185,44 @@ public sealed class BrlytDocumentContext
                 continue;
             }
 
-            if (usedFonts.ContainsKey(textBox.font))
-            {
-                continue;
-            }
-
             if (!allFontsByName.TryGetValue(textBox.font, out var font))
             {
-                throw new InvalidOperationException($"Font '{textBox.font}' referenced by textbox '{pane.name ?? string.Empty}' was not found.");
+                if (!IsLogicalFontName(textBox.font) || sortedFonts.Count == 0)
+                {
+                    throw new InvalidOperationException($"Font '{textBox.font}' referenced by textbox '{pane.name ?? string.Empty}' was not found.");
+                }
+
+                font = sortedFonts[0];
             }
 
-            usedFonts.Add(textBox.font, font);
+            string key = font.GetName();
+            if (!usedFonts.ContainsKey(key))
+            {
+                usedFonts.Add(key, font);
+            }
         }
 
         return usedFonts.Values.ToArray();
+    }
+
+    private static bool IsLogicalFontName(string fontName)
+    {
+        const string prefix = "Font";
+
+        if (!fontName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) || fontName.Length == prefix.Length)
+        {
+            return false;
+        }
+
+        for (int i = prefix.Length; i < fontName.Length; i++)
+        {
+            if (!char.IsDigit(fontName[i]))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static readonly JsonSerializerOptions MaterialJsonOptions = new()
@@ -271,5 +300,25 @@ public sealed class BrlytDocumentContext
                 }
                 break;
         }
+    }
+
+    private static bool TryParseLogicalIndex(string value, string prefix, out int index)
+    {
+        index = 0;
+
+        if (!value.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) || value.Length == prefix.Length)
+        {
+            return false;
+        }
+
+        for (int i = prefix.Length; i < value.Length; i++)
+        {
+            if (!char.IsDigit(value[i]))
+            {
+                return false;
+            }
+        }
+
+        return int.TryParse(value[prefix.Length..], out index);
     }
 }

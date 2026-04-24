@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlan
 {
-	// Token: 0x02000014 RID: 20
+	
 	[DesignerCategory("code")]
 	[GeneratedCode("xsd", "2.0.50727.42")]
 	[DebuggerStepThrough]

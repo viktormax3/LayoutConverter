@@ -71,6 +71,8 @@ public static class BrlanBinaryReader
 
         var tag = new AnimTag
         {
+            binaryIndex = ReadUInt16(bytes, payload),
+            binaryIndexSpecified = true,
             name = ReadCString(bytes, nameOffset),
             startFrame = ReadInt16(bytes, payload + 12),
             endFrame = ReadInt16(bytes, payload + 14),

@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlyt
 {
-	// Token: 0x02000073 RID: 115
+	
 	[XmlType(Namespace = "http://www.nintendo.co.jp/NW4R/LayoutEditor")]
 	[DesignerCategory("code")]
 	[GeneratedCode("xsd", "2.0.50727.42")]
@@ -14,64 +14,71 @@ namespace LayoutConverter.Core.Schema.Rlyt
 	[Serializable]
 	public class TextBox
 	{
-		// Token: 0x0600005D RID: 93 RVA: 0x000029E0 File Offset: 0x000019E0
+		
 		public TextBox()
 		{
 			this.charSpace = 0f;
 			this.lineSpace = 0f;
 			this.textAlignment = TextAlignment.Synchronous;
+			this.binaryMaterialIndex = -1;
+			this.binaryWrittenBytes = -1;
+			this.binaryStoredBytes = -1;
 		}
 
-		// Token: 0x04000297 RID: 663
-		public Vec2 fontSize;
+public Vec2 fontSize;
 
-		// Token: 0x04000298 RID: 664
-		public string text;
+public string text;
 
-		// Token: 0x04000299 RID: 665
-		public Color4 topColor;
+public Color4 topColor;
 
-		// Token: 0x0400029A RID: 666
-		public Color4 bottomColor;
+public Color4 bottomColor;
 
-		// Token: 0x0400029B RID: 667
-		public Position positionType;
+public Position positionType;
 
-		// Token: 0x0400029C RID: 668
-		public Material material;
+public Material material;
 
-		// Token: 0x0400029D RID: 669
-		public Material_Revo materialRevo;
+public Material_Revo materialRevo;
 
-		// Token: 0x0400029E RID: 670
-		[XmlAttribute]
+[XmlAttribute]
 		public string font;
 
-		// Token: 0x0400029F RID: 671
-		[XmlAttribute]
+[XmlAttribute]
 		public uint allocateStringLength;
 
-		// Token: 0x040002A0 RID: 672
-		[XmlIgnore]
+[XmlIgnore]
 		public bool allocateStringLengthSpecified;
 
-		// Token: 0x040002A1 RID: 673
-		[XmlAttribute]
+[XmlAttribute]
 		[DefaultValue(typeof(float), "0")]
 		public float charSpace;
 
-		// Token: 0x040002A2 RID: 674
-		[XmlAttribute]
+[XmlAttribute]
 		[DefaultValue(typeof(float), "0")]
 		public float lineSpace;
 
-		// Token: 0x040002A3 RID: 675
-		[DefaultValue(TextAlignment.Synchronous)]
+[DefaultValue(TextAlignment.Synchronous)]
 		[XmlAttribute]
 		public TextAlignment textAlignment;
 
-		// Token: 0x040002A4 RID: 676
+		[XmlAttribute]
+		public int binaryMaterialIndex;
+
 		[XmlIgnore]
+		public bool binaryMaterialIndexSpecified;
+
+		[XmlAttribute]
+		public int binaryWrittenBytes;
+
+		[XmlIgnore]
+		public bool binaryWrittenBytesSpecified;
+
+		[XmlAttribute]
+		public int binaryStoredBytes;
+
+		[XmlIgnore]
+		public bool binaryStoredBytesSpecified;
+
+[XmlIgnore]
 		public MaterialInfo MaterialInfo;
 	}
 }

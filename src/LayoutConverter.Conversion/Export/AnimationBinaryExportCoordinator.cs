@@ -56,7 +56,7 @@ public sealed class AnimationBinaryExportCoordinator
                 refResources,
                 new BrlanBinaryWriteOptions
                 {
-                    TagIndex = tagIndex,
+                    TagIndex = tag.binaryIndexSpecified ? tag.binaryIndex : tagIndex,
                     IncludeTagInfo = request.Animation.SplitOutputsByTag
                         && request.Animation.IncludeTagInfo
                         && !request.Animation.UseBannerVersion,

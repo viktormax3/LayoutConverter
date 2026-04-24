@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlan
 {
-	// Token: 0x02000008 RID: 8
+	
 	[DesignerCategory("code")]
 	[DebuggerStepThrough]
 	[XmlType(Namespace = "http://www.nintendo.co.jp/NW4R/LayoutEditor")]

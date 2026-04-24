@@ -24,7 +24,7 @@ public sealed class LayoutConversionRouteHandler : IConversionRouteHandler
         }
 
         log.WriteLine(_layoutExportCoordinator.BuildAnalysisSummary(layoutRequest));
-        _layoutExportCoordinator.ExportLayoutBinary(layoutRequest);
+        _layoutExportCoordinator.ExportLayoutBinary(layoutRequest, log);
         log.WriteLine($"BRLYT written to: {layoutRequest.DestinationPath}");
         return ConversionExitCode.Success;
     }

@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlyt
 {
-	// Token: 0x0200002B RID: 43
+	
 	[GeneratedCode("xsd", "2.0.50727.42")]
 	[DebuggerStepThrough]
 	[DesignerCategory("code")]
@@ -14,11 +14,10 @@ namespace LayoutConverter.Core.Schema.Rlyt
 	[Serializable]
 	public class ScreenSettingBackGround
 	{
-		// Token: 0x040000D8 RID: 216
+		
 		public Color4 color;
 
-		// Token: 0x040000D9 RID: 217
-		[XmlAttribute]
+[XmlAttribute]
 		public string imageFile;
 	}
 }

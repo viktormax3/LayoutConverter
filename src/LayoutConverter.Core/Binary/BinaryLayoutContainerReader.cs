@@ -44,17 +44,17 @@ public static class BinaryLayoutContainerReader
 
         reader.Position = headerSize;
         var sections = new List<BinaryLayoutSection>(sectionCount);
-        for (int i = 0; i < sectionCount; i++)
+        while (reader.Position < fileSize)
         {
             long sectionOffset = reader.Position;
-            if (sectionOffset + 8 > reader.Length)
+            if (sectionOffset + 8 > fileSize)
             {
                 throw new EndOfStreamException($"Unexpected end of binary layout section table: {path ?? "<stream>"}");
             }
 
             string sectionMagic = reader.ReadFixedAscii(4);
             uint sectionSize = reader.ReadUInt32();
-            if (sectionSize < 8 || sectionOffset + sectionSize > reader.Length)
+            if (sectionSize < 8 || sectionOffset + sectionSize > fileSize)
             {
                 throw new InvalidDataException($"Invalid section '{sectionMagic}' size 0x{sectionSize:X8}: {path ?? "<stream>"}");
             }
