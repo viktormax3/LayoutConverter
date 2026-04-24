@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlan
 {
-	// Token: 0x02000015 RID: 21
+	
 	[DebuggerStepThrough]
 	[XmlType(Namespace = "http://www.nintendo.co.jp/NW4R/LayoutEditor")]
 	[GeneratedCode("xsd", "2.0.50727.42")]
@@ -14,7 +14,7 @@ namespace LayoutConverter.Core.Schema.Rlan
 	[Serializable]
 	public class AnimContent
 	{
-		// Token: 0x0400007D RID: 125
+		
 		[XmlElement("animIndTexSRTTarget", typeof(AnimIndTexSRTTarget))]
 		[XmlElement("animVisibilityTarget", typeof(AnimVisibilityTarget))]
 		[XmlElement("animVertexColorTarget", typeof(AnimVertexColorTarget))]
@@ -24,8 +24,7 @@ namespace LayoutConverter.Core.Schema.Rlan
 		[XmlElement("animPainSRTTarget", typeof(AnimPainSRTTarget))]
 		public AnimTarget[] Items;
 
-		// Token: 0x0400007E RID: 126
-		[XmlAttribute]
+[XmlAttribute]
 		public string name;
 	}
 }

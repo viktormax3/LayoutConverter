@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlyt
 {
-	// Token: 0x02000047 RID: 71
+	
 	[XmlType(Namespace = "http://www.nintendo.co.jp/NW4R/LayoutEditor")]
 	[DesignerCategory("code")]
 	[DebuggerStepThrough]
@@ -14,7 +14,7 @@ namespace LayoutConverter.Core.Schema.Rlyt
 	[Serializable]
 	public class TexBlendRatio
 	{
-		// Token: 0x0400013D RID: 317
+		
 		[XmlAttribute]
 		public byte color;
 	}

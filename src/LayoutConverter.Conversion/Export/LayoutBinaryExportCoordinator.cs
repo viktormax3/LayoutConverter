@@ -27,7 +27,7 @@ public sealed class LayoutBinaryExportCoordinator
         });
     }
 
-    public void ExportLayoutBinary(LayoutConversionRequest request)
+    public void ExportLayoutBinary(LayoutConversionRequest request, TextWriter? log = null)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -47,6 +47,6 @@ public sealed class LayoutBinaryExportCoordinator
             writer.WriteDocument(context);
         }
 
-        _resourceExporter.ExportResources(request, context);
+        _resourceExporter.ExportResources(request, context, log);
     }
 }

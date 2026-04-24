@@ -102,6 +102,6 @@ public sealed class ConversionPipeline
         log.WriteLine("  -- Reverse/inspection routes --");
         log.WriteLine("      .tpl                    Decode supported TPL textures to TGA");
         log.WriteLine("      .brlan                  Reconstruct RLAN XML");
-        log.WriteLine("      .brlyt                  Reconstruct partial RLYT XML");
+        log.WriteLine("      .brlyt                  Reconstruct RLYT XML");
     }
 }

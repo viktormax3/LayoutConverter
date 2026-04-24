@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlyt
 {
-	// Token: 0x02000037 RID: 55
+	
 	[XmlType(Namespace = "http://www.nintendo.co.jp/NW4R/LayoutEditor")]
 	[XmlRoot("paneTree", Namespace = "http://www.nintendo.co.jp/NW4R/LayoutEditor", IsNullable = false)]
 	[DesignerCategory("code")]
@@ -15,12 +15,11 @@ namespace LayoutConverter.Core.Schema.Rlyt
 	[Serializable]
 	public class PaneTree
 	{
-		// Token: 0x040000F8 RID: 248
+		
 		[XmlElement("paneTree")]
 		public PaneTree[] paneTree;
 
-		// Token: 0x040000F9 RID: 249
-		[XmlAttribute]
+[XmlAttribute]
 		public string name;
 	}
 }

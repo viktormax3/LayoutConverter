@@ -2,10 +2,10 @@
 
 namespace LayoutConverter.Core.Schema.Rlyt
 {
-	// Token: 0x02000080 RID: 128
+	
 	public class MaterialInfo
 	{
-		// Token: 0x17000001 RID: 1
+		
 		// (get) Token: 0x06000069 RID: 105 RVA: 0x00002C48 File Offset: 0x00001C48
 		public Pane Pane
 		{
@@ -15,8 +15,7 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			}
 		}
 
-		// Token: 0x17000002 RID: 2
-		// (get) Token: 0x0600006A RID: 106 RVA: 0x00002C5C File Offset: 0x00001C5C
+// (get) Token: 0x0600006A RID: 106 RVA: 0x00002C5C File Offset: 0x00001C5C
 		public bool IsOutTexture
 		{
 			get
@@ -25,8 +24,7 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			}
 		}
 
-		// Token: 0x17000003 RID: 3
-		// (get) Token: 0x0600006B RID: 107 RVA: 0x00002C70 File Offset: 0x00001C70
+// (get) Token: 0x0600006B RID: 107 RVA: 0x00002C70 File Offset: 0x00001C70
 		public bool IsDetailSetting
 		{
 			get
@@ -35,8 +33,7 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			}
 		}
 
-		// Token: 0x17000004 RID: 4
-		// (get) Token: 0x0600006C RID: 108 RVA: 0x00002C84 File Offset: 0x00001C84
+// (get) Token: 0x0600006C RID: 108 RVA: 0x00002C84 File Offset: 0x00001C84
 		// (set) Token: 0x0600006D RID: 109 RVA: 0x00002C98 File Offset: 0x00001C98
 		public int BinaryIndex
 		{
@@ -50,8 +47,7 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			}
 		}
 
-		// Token: 0x0600006E RID: 110 RVA: 0x00002CAC File Offset: 0x00001CAC
-		public MaterialInfo(Pane pane, Material simple, Material_Revo detail, bool bOutTexture, bool bDetailSetting)
+public MaterialInfo(Pane pane, Material simple, Material_Revo detail, bool bOutTexture, bool bDetailSetting)
 		{
 			this._pane = pane;
 			this._simple = simple;
@@ -60,8 +56,7 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			this._bDetailSetting = bDetailSetting;
 		}
 
-		// Token: 0x0600006F RID: 111 RVA: 0x00002CE4 File Offset: 0x00001CE4
-		public bool EqualsContent(MaterialInfo other)
+public bool EqualsContent(MaterialInfo other)
 		{
 			int num = 3;
 			for (;;)
@@ -101,64 +96,44 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			return this._bDetailSetting == other._bDetailSetting;
 		}
 
-		// Token: 0x040002E3 RID: 739
-		private Pane _pane;
+private Pane _pane;
 
-		// Token: 0x040002E4 RID: 740
-		private Material _simple;
+private Material _simple;
 
-		// Token: 0x040002E5 RID: 741
-		private Material_Revo _detail;
+private Material_Revo _detail;
 
-		// Token: 0x040002E6 RID: 742
-		private bool _bOutTexture;
+private bool _bOutTexture;
 
-		// Token: 0x040002E7 RID: 743
-		private bool _bDetailSetting;
+private bool _bDetailSetting;
 
-		// Token: 0x040002E8 RID: 744
-		private int _binaryIndex;
+private int _binaryIndex;
 
-		// Token: 0x040002E9 RID: 745
-		public string name;
+public string name;
 
-		// Token: 0x040002EA RID: 746
-		public ColorS10_4[] tevColReg;
+public ColorS10_4[] tevColReg;
 
-		// Token: 0x040002EB RID: 747
-		public Color4[] tevConstReg;
+public Color4[] tevConstReg;
 
-		// Token: 0x040002EC RID: 748
-		public TexMap[] texMap;
+public TexMap[] texMap;
 
-		// Token: 0x040002ED RID: 749
-		public TexMatrix[] texMatrix;
+public TexMatrix[] texMatrix;
 
-		// Token: 0x040002EE RID: 750
-		public TexCoordGen[] texCoordGen;
+public TexCoordGen[] texCoordGen;
 
-		// Token: 0x040002EF RID: 751
-		public Material_RevoChannelControl[] channelControl;
+public Material_RevoChannelControl[] channelControl;
 
-		// Token: 0x040002F0 RID: 752
-		public Color4 matColReg;
+public Color4 matColReg;
 
-		// Token: 0x040002F1 RID: 753
-		public Material_RevoSwapTable[] swapTable;
+public Material_RevoSwapTable[] swapTable;
 
-		// Token: 0x040002F2 RID: 754
-		public TexMatrix[] indirectMatrix;
+public TexMatrix[] indirectMatrix;
 
-		// Token: 0x040002F3 RID: 755
-		public Material_RevoIndirectStage[] indirectStage;
+public Material_RevoIndirectStage[] indirectStage;
 
-		// Token: 0x040002F4 RID: 756
-		public Material_RevoTevStage[] tevStage;
+public Material_RevoTevStage[] tevStage;
 
-		// Token: 0x040002F5 RID: 757
-		public Material_RevoAlphaCompare alphaCompare;
+public Material_RevoAlphaCompare alphaCompare;
 
-		// Token: 0x040002F6 RID: 758
-		public Material_RevoBlendMode blendMode;
+public Material_RevoBlendMode blendMode;
 	}
 }

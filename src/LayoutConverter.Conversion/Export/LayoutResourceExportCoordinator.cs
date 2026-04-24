@@ -8,13 +8,13 @@ namespace LayoutConverter.Conversion.Export;
 
 public sealed class LayoutResourceExportCoordinator
 {
-    public void ExportResources(LayoutConversionRequest request, BrlytDocumentContext context)
+    public void ExportResources(LayoutConversionRequest request, BrlytDocumentContext context, TextWriter? log = null)
     {
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(context);
 
         ExportTextures(request, context);
-        ExportFonts(request, context);
+        ExportFonts(request, context, log);
     }
 
     public void ExportTexturesByName(
@@ -106,7 +106,7 @@ public sealed class LayoutResourceExportCoordinator
         }
     }
 
-    private static void ExportFonts(LayoutConversionRequest request, BrlytDocumentContext context)
+    private static void ExportFonts(LayoutConversionRequest request, BrlytDocumentContext context, TextWriter? log)
     {
         if (context.Fonts.Count == 0)
         {
@@ -123,7 +123,8 @@ public sealed class LayoutResourceExportCoordinator
             var sourcePath = ResolveResourcePath(request.SourcePath, font.path);
             if (!File.Exists(sourcePath))
             {
-                throw new FileNotFoundException($"Font source file not found: {sourcePath}", sourcePath);
+                log?.WriteLine($"Warning: Font source file not found, skipping copy: {sourcePath}");
+                continue;
             }
 
             var sectionMagic = Path.GetExtension(sourcePath).Equals(".brfna", StringComparison.OrdinalIgnoreCase)

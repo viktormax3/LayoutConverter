@@ -12,7 +12,7 @@ public sealed class BrlytBinaryWriter
     private const uint BinaryMagic = 0x524C5954; // RLYT
     private const ushort ByteOrderMark = 0xFEFF;
     private const ushort HeaderSize = 0x0010;
-    private const ushort BrlytVersion = 0x0008;
+    private const ushort DefaultBrlytVersion = 0x0008;
     private const uint PaneCommonPayloadSize = 76u;
     private const uint PicturePayloadSize = 20u;
     private const uint TextBoxPayloadSize = 40u;
@@ -39,7 +39,7 @@ public sealed class BrlytBinaryWriter
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        long fileSizePatchOffset = WriteFileHeader();
+        long fileSizePatchOffset = WriteFileHeader(context.SourceDocument.version);
 
         WriteLyt1Section(context.Layout.screenSetting);
         WriteTxl1Section(context.Textures);
@@ -58,15 +58,25 @@ public sealed class BrlytBinaryWriter
         _sectionCount++;
     }
 
-    private long WriteFileHeader()
+    private long WriteFileHeader(string? xmlVersion)
     {
         _writer.WriteUInt32(BinaryMagic);
         _writer.WriteUInt16(ByteOrderMark);
-        _writer.WriteUInt16(BrlytVersion);
+        _writer.WriteUInt16(MapBinaryVersion(xmlVersion));
         long fileSizePatchOffset = _writer.ReserveUInt32();
         _writer.WriteUInt16(HeaderSize);
         _writer.WriteUInt16(0); // section count placeholder
         return fileSizePatchOffset;
+    }
+
+    private static ushort MapBinaryVersion(string? xmlVersion)
+    {
+        if (Version.TryParse(xmlVersion, out var version) && version.Major == 1 && version.Minor is >= 0 and <= 2)
+        {
+            return (ushort)(0x0008 + version.Minor);
+        }
+
+        return DefaultBrlytVersion;
     }
 
     private void WriteLyt1Section(ScreenSetting? screenSetting)
@@ -499,7 +509,7 @@ public sealed class BrlytBinaryWriter
         _writer.WriteByte(pane.alpha);
         _writer.WriteByte(0);
         _writer.WriteFixedAscii(pane.name ?? string.Empty, 16, zeroTerminate: true);
-        WriteZeroBytes(8);
+        WritePaneReservedBytes(pane.binaryReservedBytes);
         _writer.WriteSingle(pane.translate?.x ?? 0f);
         _writer.WriteSingle(pane.translate?.y ?? 0f);
         _writer.WriteSingle(pane.translate?.z ?? 0f);
@@ -520,7 +530,7 @@ public sealed class BrlytBinaryWriter
         _writer.WriteByte(0xFF);
         _writer.WriteByte(0);
         _writer.WriteFixedAscii(name ?? "RootPane", 16, zeroTerminate: true);
-        WriteZeroBytes(8);
+        WritePaneReservedBytes(string.Empty);
         _writer.WriteSingle(0f);
         _writer.WriteSingle(0f);
         _writer.WriteSingle(0f);
@@ -589,12 +599,22 @@ public sealed class BrlytBinaryWriter
             textBytes = truncated;
         }
 
+        ushort headerWrittenBytes = textBox.binaryWrittenBytesSpecified
+            ? (ushort)Math.Clamp(textBox.binaryWrittenBytes, 0, ushort.MaxValue)
+            : writtenBytes;
+        ushort headerStoredBytes = textBox.binaryStoredBytesSpecified
+            ? (ushort)Math.Clamp(textBox.binaryStoredBytes, 0, ushort.MaxValue)
+            : storedBytes;
+        ReadOnlySpan<byte> payloadBytes = textBox.binaryWrittenBytesSpecified || textBox.binaryStoredBytesSpecified
+            ? textBytes
+            : textBytes.AsSpan(0, writtenBytes);
+
         const uint textOffset = PaneCommonPayloadSize + TextBoxPayloadSize;
 
-        _writer.WriteUInt16((ushort)ResolveMaterialIndex(context, textBox.material, textBox.materialRevo));
+        _writer.WriteUInt16((ushort)ResolveTextBoxMaterialIndex(context, textBox));
         _writer.WriteUInt16((ushort)ResolveFontIndex(textBox.font, context.Fonts));
-        _writer.WriteUInt16(writtenBytes);
-        _writer.WriteUInt16(storedBytes);
+        _writer.WriteUInt16(headerWrittenBytes);
+        _writer.WriteUInt16(headerStoredBytes);
         _writer.WriteByte((byte)MapTextBoxPosition(textBox.positionType));
         _writer.WriteByte((byte)MapTextAlignment(textBox.textAlignment));
         _writer.WriteUInt16(0);
@@ -606,7 +626,7 @@ public sealed class BrlytBinaryWriter
         _writer.WriteSingle(textBox.charSpace);
         _writer.WriteSingle(textBox.lineSpace);
 
-        WriteTextPayload(textBytes, writtenBytes, storedBytes);
+        WriteTextPayload(payloadBytes);
     }
 
     private void WriteWindowPane(Window window, BrlytDocumentContext context)
@@ -972,16 +992,15 @@ public sealed class BrlytBinaryWriter
         _writer.WriteByte(color?.a ?? byte.MaxValue);
     }
 
-    private void WriteTextPayload(byte[] textBytes, ushort writtenBytes, ushort storedBytes)
+    private void WriteTextPayload(ReadOnlySpan<byte> textBytes)
     {
-        if (writtenBytes > 0)
+        if (!textBytes.IsEmpty)
         {
-            _writer.Write(textBytes.AsSpan(0, writtenBytes));
+            _writer.Write(textBytes);
         }
 
-        // The txt1 header stores both the actual written byte length and the optional
-        // allocated length, but the original writer does not emit zero-fill up to the
-        // allocated capacity here. It only writes the actual text payload, then aligns.
+        // The txt1 header metadata and the emitted text payload are not always coupled in
+        // binaries produced by the original tools, so we preserve the payload bytes as-is.
         _writer.Align(SectionAlignment);
     }
 
@@ -1430,6 +1449,37 @@ public sealed class BrlytBinaryWriter
             ? revoIndex
             : context.ResolveMaterialIndex(material);
 
+    private int ResolveTextBoxMaterialIndex(BrlytDocumentContext context, TextBox textBox)
+    {
+        if (textBox.binaryMaterialIndexSpecified)
+        {
+            return textBox.binaryMaterialIndex;
+        }
+
+        string? materialName = textBox.materialRevo?.name ?? textBox.material?.name;
+        if (TryParseLogicalMaterialIndex(materialName, out int logicalIndex))
+        {
+            return logicalIndex;
+        }
+
+        return ResolveMaterialIndex(context, textBox.material, textBox.materialRevo);
+    }
+
+    private static bool TryParseLogicalMaterialIndex(string? materialName, out int index)
+    {
+        const string prefix = "Material";
+        index = 0;
+
+        if (string.IsNullOrWhiteSpace(materialName)
+            || !materialName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+            || materialName.Length == prefix.Length)
+        {
+            return false;
+        }
+
+        return int.TryParse(materialName[prefix.Length..], NumberStyles.None, CultureInfo.InvariantCulture, out index);
+    }
+
     private void WriteRgb(byte r, byte g, byte b)
     {
         _writer.WriteByte(r);
@@ -1452,6 +1502,23 @@ public sealed class BrlytBinaryWriter
         {
             _writer.WriteByte(0);
         }
+    }
+
+    private void WritePaneReservedBytes(string? hex)
+    {
+        if (string.IsNullOrWhiteSpace(hex))
+        {
+            WriteZeroBytes(8);
+            return;
+        }
+
+        byte[] bytes = Convert.FromHexString(hex);
+        if (bytes.Length != 8)
+        {
+            throw new InvalidOperationException($"Pane binaryReservedBytes must decode to exactly 8 bytes, but was {bytes.Length}.");
+        }
+
+        _writer.Write(bytes);
     }
 
     private void WriteCString(string text)
@@ -1659,8 +1726,30 @@ public sealed class BrlytBinaryWriter
             .FirstOrDefault(tuple => string.Equals(tuple.texture.GetName(), imageName, StringComparison.InvariantCultureIgnoreCase)).index;
 
     private int ResolveFontIndex(string? fontName, IReadOnlyList<FontFile> fonts)
-        => fonts.Select(static (font, index) => (font, index))
+    {
+        if (TryParseLogicalFontIndex(fontName, out int logicalIndex))
+        {
+            return logicalIndex;
+        }
+
+        return fonts.Select(static (font, index) => (font, index))
             .FirstOrDefault(tuple => string.Equals(tuple.font.GetName(), fontName, StringComparison.Ordinal)).index;
+    }
+
+    private static bool TryParseLogicalFontIndex(string? fontName, out int index)
+    {
+        const string prefix = "Font";
+        index = 0;
+
+        if (string.IsNullOrWhiteSpace(fontName)
+            || !fontName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+            || fontName.Length == prefix.Length)
+        {
+            return false;
+        }
+
+        return int.TryParse(fontName[prefix.Length..], NumberStyles.None, CultureInfo.InvariantCulture, out index);
+    }
 
     private string NormalizeTextForExport(string text)
     {

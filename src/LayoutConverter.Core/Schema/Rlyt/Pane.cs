@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace LayoutConverter.Core.Schema.Rlyt
 {
-	// Token: 0x0200007A RID: 122
+	
 	[DebuggerStepThrough]
 	[GeneratedCode("xsd", "2.0.50727.42")]
 	[XmlType(Namespace = "http://www.nintendo.co.jp/NW4R/LayoutEditor")]
@@ -15,7 +15,7 @@ namespace LayoutConverter.Core.Schema.Rlyt
 	[Serializable]
 	public class Pane
 	{
-		// Token: 0x06000063 RID: 99 RVA: 0x00002B14 File Offset: 0x00001B14
+		
 		public Pane()
 		{
 			this.visible = true;
@@ -24,10 +24,10 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			this.locked = false;
 			this.alpha = byte.MaxValue;
 			this.locationAdjust = false;
+			this.binaryReservedBytes = string.Empty;
 		}
 
-		// Token: 0x06000064 RID: 100 RVA: 0x00002B58 File Offset: 0x00001B58
-		public Pane(string paneName, Vec2 size)
+public Pane(string paneName, Vec2 size)
 			: this()
 		{
 			this.name = paneName;
@@ -41,77 +41,64 @@ namespace LayoutConverter.Core.Schema.Rlyt
 			this.size = size;
 		}
 
-		// Token: 0x040002C0 RID: 704
-		public string comment;
+public string comment;
 
-		// Token: 0x040002C1 RID: 705
-		public Position basePositionType;
+public Position basePositionType;
 
-		// Token: 0x040002C2 RID: 706
-		public Vec3 translate;
+public Vec3 translate;
 
-		// Token: 0x040002C3 RID: 707
-		public Vec3 rotate;
+public Vec3 rotate;
 
-		// Token: 0x040002C4 RID: 708
-		public Vec2 scale;
+public Vec2 scale;
 
-		// Token: 0x040002C5 RID: 709
-		public Vec2 size;
+public Vec2 size;
 
-		// Token: 0x040002C6 RID: 710
-		[XmlElement("bounding", typeof(Bounding))]
+[XmlElement("bounding", typeof(Bounding))]
 		[XmlElement("textBox", typeof(TextBox))]
 		[XmlElement("window", typeof(Window))]
 		[XmlElement("picture", typeof(Picture))]
 		public object Item;
 
-		// Token: 0x040002C7 RID: 711
-		[XmlArrayItem("float", typeof(UserDataFloatList), IsNullable = false)]
+[XmlArrayItem("float", typeof(UserDataFloatList), IsNullable = false)]
 		[XmlArrayItem("int", typeof(UserDataIntList), IsNullable = false)]
 		[XmlArrayItem("string", typeof(UserDataString), IsNullable = false)]
 		public object[] userData;
 
-		// Token: 0x040002C8 RID: 712
-		[XmlAttribute]
+[XmlAttribute]
 		public PaneKind kind;
 
-		// Token: 0x040002C9 RID: 713
-		[XmlAttribute]
+[XmlAttribute]
 		public string name;
 
-		// Token: 0x040002CA RID: 714
-		[DefaultValue(true)]
+[DefaultValue(true)]
 		[XmlAttribute]
 		public bool visible;
 
-		// Token: 0x040002CB RID: 715
-		[DefaultValue(false)]
+[DefaultValue(false)]
 		[XmlAttribute]
 		public bool influencedAlpha;
 
-		// Token: 0x040002CC RID: 716
-		[DefaultValue(false)]
+[DefaultValue(false)]
 		[XmlAttribute]
 		public bool hidden;
 
-		// Token: 0x040002CD RID: 717
-		[XmlAttribute]
+[XmlAttribute]
 		[DefaultValue(false)]
 		public bool locked;
 
-		// Token: 0x040002CE RID: 718
-		[DefaultValue(typeof(byte), "255")]
+[DefaultValue(typeof(byte), "255")]
 		[XmlAttribute]
 		public byte alpha;
 
-		// Token: 0x040002CF RID: 719
-		[DefaultValue(false)]
+[DefaultValue(false)]
 		[XmlAttribute]
 		public bool locationAdjust;
 
-		// Token: 0x040002D0 RID: 720
-		[XmlIgnore]
+		[XmlAttribute]
+		[DefaultValue("")]
+		public string binaryReservedBytes;
+
+[XmlIgnore]
 		public List<Pane> ChildList;
 	}
 }
