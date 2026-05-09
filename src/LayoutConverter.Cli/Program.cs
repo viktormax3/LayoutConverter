@@ -1,4 +1,4 @@
-﻿using LayoutConverter.Conversion.Options;
+using LayoutConverter.Conversion.Options;
 using LayoutConverter.Conversion.Pipeline;
 
 try

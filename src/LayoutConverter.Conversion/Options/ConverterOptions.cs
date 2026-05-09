@@ -1,4 +1,4 @@
-﻿using LayoutConverter.Conversion.Infrastructure;
+using LayoutConverter.Conversion.Infrastructure;
 using LayoutConverter.Core.Brlyt;
 
 namespace LayoutConverter.Conversion.Options;
@@ -20,6 +20,7 @@ public sealed class ConverterOptions
         bool showHelp = false;
         bool update = false;
         bool splitByTag = false;
+        bool mergeAnimations = false;
         bool includeTagInfo = true;
         bool omitSameKey = false;
         bool omitSameKeyAll = false;
@@ -52,6 +53,9 @@ public sealed class ConverterOptions
                     break;
                 case "g":
                     splitByTag = true;
+                    break;
+                case "merge-anim":
+                    mergeAnimations = true;
                     break;
                 case "i":
                 case "no-convert-cvtrchar":
@@ -138,6 +142,7 @@ public sealed class ConverterOptions
             },
             Animation = new AnimationRouteOptions
             {
+                MergeAnimations = mergeAnimations,
                 SplitOutputsByTag = splitByTag,
                 IncludeTagInfo = includeTagInfo,
                 OmitSameKeyAfterFirstTag = omitSameKey,
@@ -176,6 +181,7 @@ public sealed class LayoutRouteOptions
 
 public sealed class AnimationRouteOptions
 {
+    public bool MergeAnimations { get; init; }
     public bool SplitOutputsByTag { get; init; }
     public bool IncludeTagInfo { get; init; } = true;
     public bool OmitSameKeyAfterFirstTag { get; init; }
@@ -186,7 +192,8 @@ public sealed class AnimationRouteOptions
 
     public bool HasAnyExplicitSetting()
     {
-        return SplitOutputsByTag
+        return MergeAnimations
+            || SplitOutputsByTag
             || !IncludeTagInfo
             || OmitSameKeyAfterFirstTag
             || OmitSameKeyForAllTags

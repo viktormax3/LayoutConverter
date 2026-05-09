@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -38,7 +38,7 @@ namespace LayoutConverter.Core.Schema.Rlan
 			}
 			return this.fileName;
 		}
-		public string comment;[XmlArrayItem("string", typeof(UserDataString), IsNullable = false)]
+		public string comment = string.Empty;[XmlArrayItem("string", typeof(UserDataString), IsNullable = false)]
 		[XmlArrayItem("float", typeof(UserDataFloatList), IsNullable = false)]
 		[XmlArrayItem("int", typeof(UserDataIntList), IsNullable = false)]
 		public object[] userData;public Color4 color;[XmlElement("group")]

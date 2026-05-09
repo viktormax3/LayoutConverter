@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -21,7 +21,7 @@ namespace LayoutConverter.Core.Schema.Rlan
 		public Hermite()
 		{
 			this.slope = 0f;
-			this.slopeType = SlopeType.Fixed;
+			this.slopeType = SlopeType.Smooth;
 		}
 
 public Hermite Duplicate(float frame)
@@ -41,8 +41,7 @@ public Hermite Duplicate(float frame)
 		[DefaultValue(typeof(float), "0")]
 		public float slope;
 
-[DefaultValue(SlopeType.Fixed)]
-		[XmlAttribute]
+[XmlAttribute]
 		public SlopeType slopeType;
 	}
 }

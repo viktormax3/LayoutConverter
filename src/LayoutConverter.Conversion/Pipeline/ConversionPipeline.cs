@@ -1,4 +1,4 @@
-﻿using LayoutConverter.Conversion.Infrastructure;
+using LayoutConverter.Conversion.Infrastructure;
 using LayoutConverter.Conversion.Options;
 using LayoutConverter.Conversion.Requests;
 using LayoutConverter.Conversion.Routing;
@@ -22,6 +22,15 @@ public sealed class ConversionPipeline
             return options.ShowHelp ? ConversionExitCode.Success : ConversionExitCode.InvalidArguments;
         }
 
+        if (options.Animation.MergeAnimations)
+        {
+            var mergeResult = ExecuteAnimationMerge(options, log);
+            if (mergeResult != ConversionExitCode.Success)
+            {
+                return mergeResult;
+            }
+        }
+
         foreach (var inputArgument in options.InputPaths)
         {
             string[] inputs;
@@ -39,6 +48,13 @@ public sealed class ConversionPipeline
             foreach (var inputPath in inputs)
             {
                 var fileType = ConverterPathHelper.DetectFileType(inputPath);
+
+                // Skip individual BRLANs if they were already processed by the merge handler
+                if (options.Animation.MergeAnimations && fileType == ConverterFileType.BinaryAnimation)
+                {
+                    continue;
+                }
+
                 var request = ConversionRequestFactory.Create(inputPath, options);
                 if (request is null)
                 {
@@ -102,6 +118,70 @@ public sealed class ConversionPipeline
         log.WriteLine("  -- Reverse/inspection routes --");
         log.WriteLine("      .tpl                    Decode supported TPL textures to TGA");
         log.WriteLine("      .brlan                  Reconstruct RLAN XML");
+        log.WriteLine("      --merge-anim            Merge multiple splitted BRLANs into one RLAN master");
         log.WriteLine("      .brlyt                  Reconstruct RLYT XML");
+    }
+
+    private ConversionExitCode ExecuteAnimationMerge(ConverterOptions options, TextWriter log)
+    {
+        try
+        {
+            var inputs = new System.Collections.Generic.List<string>();
+            foreach (var p in options.InputPaths)
+            {
+                if (Directory.Exists(p)) 
+                    inputs.AddRange(Directory.GetFiles(p, "*.brlan", System.IO.SearchOption.AllDirectories));
+                else 
+                    inputs.Add(p);
+            }
+
+            if (inputs.Count == 0)
+            {
+                log.WriteLine("Error: No BRLAN files provided for merge.");
+                return ConversionExitCode.InvalidArguments;
+            }
+
+            string layoutName;
+            string outFilePath;
+
+            // Detect if OutputPath is a directory (no extension or already exists as directory)
+            bool isOutputDir = string.IsNullOrEmpty(Path.GetExtension(options.OutputPath)) || Directory.Exists(options.OutputPath);
+
+            if (isOutputDir)
+            {
+                var firstInputName = Path.GetFileNameWithoutExtension(inputs[0]);
+                var underscoreIndex = firstInputName.IndexOf('_');
+                layoutName = underscoreIndex > 0 ? firstInputName.Substring(0, underscoreIndex) : firstInputName;
+                outFilePath = Path.Combine(options.OutputPath, "Layout", layoutName + ".rlan");
+            }
+            else
+            {
+                layoutName = Path.GetFileNameWithoutExtension(options.OutputPath);
+                outFilePath = options.OutputPath;
+            }
+
+            if (string.IsNullOrEmpty(layoutName))
+            {
+                log.WriteLine("Error: Could not derive layout name for merge.");
+                return ConversionExitCode.InvalidArguments;
+            }
+
+            var mergedDoc = LayoutConverter.Core.Brlan.BrlanMergeHelper.MergeSequential(layoutName, inputs);
+            
+            var fullOutPath = Path.GetFullPath(outFilePath);
+            Directory.CreateDirectory(Path.GetDirectoryName(fullOutPath)!);
+            
+            using var output = File.Create(fullOutPath);
+            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(LayoutConverter.Core.Schema.Rlan.Document));
+            serializer.Serialize(output, mergedDoc);
+
+            log.WriteLine($"Merged {inputs.Count} animation(s) into {fullOutPath}");
+            return ConversionExitCode.Success;
+        }
+        catch (Exception ex)
+        {
+            log.WriteLine($"Merge failed: {ex.Message}");
+            return ConversionExitCode.UnexpectedFailure;
+        }
     }
 }

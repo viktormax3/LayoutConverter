@@ -168,10 +168,10 @@ public static class BrlytBinaryReader
     private static string MapXmlVersion(ushort binaryVersion)
         => binaryVersion switch
         {
-            0x0008 => "1.0.0",
-            0x0009 => "1.1.0",
-            0x000A => "1.2.0",
-            _ => $"1.{Math.Max(0, binaryVersion - 0x0008)}.0",
+            0x0008 => "1.2.0",
+            0x0009 => "1.3.0",
+            0x000A => "1.4.0",
+            _ => $"1.{Math.Max(2, binaryVersion - 0x0006)}.0",
         };
 
     private static ScreenSetting ReadLyt1(BinaryLayoutSection section, byte[] bytes)

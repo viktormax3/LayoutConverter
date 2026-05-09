@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -18,9 +18,9 @@ namespace LayoutConverter.Core.Schema.Rlan
 		
 		public HeadCreate create;
 
-public string title;
+public string title = string.Empty;
 
-public string comment;
+public string comment = string.Empty;
 
 public HeadGenerator generator;
 	}

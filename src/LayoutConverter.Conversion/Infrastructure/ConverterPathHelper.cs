@@ -1,4 +1,4 @@
-﻿
+
 using System.Text.RegularExpressions;
 
 namespace LayoutConverter.Conversion.Infrastructure;
@@ -48,7 +48,7 @@ public static class ConverterPathHelper
         if (Directory.Exists(inputArgument))
         {
             sourceWasDirectory = true;
-            return Directory.GetFiles(inputArgument);
+            return Directory.GetFiles(inputArgument, "*", SearchOption.AllDirectories);
         }
 
         if (File.Exists(inputArgument))
@@ -76,16 +76,16 @@ public static class ConverterPathHelper
     }
 
     public static string BuildTextureOutputFilePath(string outputDirectory, string sourceFilePath)
-        => Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(sourceFilePath) + ".tga");
+        => Path.Combine(EnsureNativeSectionOutputDirectory(outputDirectory, "Texture"), Path.GetFileNameWithoutExtension(sourceFilePath) + ".tga");
 
     public static string BuildBinaryInspectionOutputFilePath(string outputDirectory, string sourceFilePath)
         => Path.Combine(outputDirectory, Path.GetFileName(sourceFilePath) + ".sections.txt");
 
     public static string BuildRlanOutputFilePath(string outputDirectory, string sourceFilePath)
-        => Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(sourceFilePath) + ".rlan");
+        => Path.Combine(EnsureNativeSectionOutputDirectory(outputDirectory, "Layout"), Path.GetFileNameWithoutExtension(sourceFilePath) + ".rlan");
 
     public static string BuildRlytOutputFilePath(string outputDirectory, string sourceFilePath)
-        => Path.Combine(outputDirectory, Path.GetFileNameWithoutExtension(sourceFilePath) + ".rlyt");
+        => Path.Combine(EnsureNativeSectionOutputDirectory(outputDirectory, "Layout"), Path.GetFileNameWithoutExtension(sourceFilePath) + ".rlyt");
 
     public static bool IsValidResourceName(string value)
         => !ValidResourceNamePattern.IsMatch(value);
@@ -108,6 +108,16 @@ public static class ConverterPathHelper
         var sectionDirectoryName = SectionDirectories.TryGetValue(sectionMagic, out var name)
             ? name
             : sectionMagic.ToString("X8");
+
+        var sectionDirectoryPath = Path.Combine(rootOutputDirectory, sectionDirectoryName);
+        Directory.CreateDirectory(sectionDirectoryPath);
+        return sectionDirectoryPath;
+    }
+
+    public static string EnsureNativeSectionOutputDirectory(string rootOutputDirectory, string sectionDirectoryName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(rootOutputDirectory);
+        ArgumentException.ThrowIfNullOrWhiteSpace(sectionDirectoryName);
 
         var sectionDirectoryPath = Path.Combine(rootOutputDirectory, sectionDirectoryName);
         Directory.CreateDirectory(sectionDirectoryPath);
