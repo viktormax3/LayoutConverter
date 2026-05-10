@@ -114,15 +114,18 @@ public sealed class BrlytMaterialEntry
 
         if (supportsTexturePayload)
         {
-            indirectStages = Resize(materialRevo.indirectStage, 4);
-            indirectMatrices = Resize(materialRevo.indirectMatrix, 3);
-            tevStages = Resize(materialRevo.tevStage, 16);
-        }
+            int indirectStageCount = Math.Min(materialRevo.indirectStageNum, (byte)4);
+            indirectStages = indirectStageCount > 0
+                ? Resize(materialRevo.indirectStage, indirectStageCount)
+                : Array.Empty<Material_RevoIndirectStage>();
+            indirectMatrices = indirectStages.Length > 0
+                ? Resize(materialRevo.indirectMatrix, 3)
+                : Array.Empty<TexMatrix>();
 
-        Material_RevoSwapTable[]? swapTables = null;
-        if (supportsTexturePayload)
-        {
-            swapTables = Resize(materialRevo.swapTable, 4);
+            int tevStageCount = Math.Min(materialRevo.tevStageNum, (byte)16);
+            tevStages = tevStageCount > 0
+                ? Resize(materialRevo.tevStage, tevStageCount)
+                : Array.Empty<Material_RevoTevStage>();
         }
 
         return new BrlytMaterialEntry

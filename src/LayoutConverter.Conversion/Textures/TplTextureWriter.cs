@@ -119,8 +119,8 @@ internal static class TplTextureWriter
         int offset = 0;
         ForBlocks(image, 8, 8, (x, y) =>
         {
-            byte hi = Quantize4(image.GetPixel(x, y).Intensity);
-            byte lo = Quantize4(image.GetPixel(x + 1, y).Intensity);
+            byte hi = Quantize4(GetTplPixel(image, x, y).Intensity);
+            byte lo = Quantize4(GetTplPixel(image, x + 1, y).Intensity);
             output[offset++] = (byte)((hi << 4) | lo);
         }, stepX: 2);
         return output;
@@ -130,7 +130,7 @@ internal static class TplTextureWriter
     {
         var output = new byte[BlockCount(image.Width, 8) * BlockCount(image.Height, 4) * 32];
         int offset = 0;
-        ForBlocks(image, 8, 4, (x, y) => output[offset++] = (byte)image.GetPixel(x, y).Intensity);
+        ForBlocks(image, 8, 4, (x, y) => output[offset++] = (byte)GetTplPixel(image, x, y).Intensity);
         return output;
     }
 
@@ -140,7 +140,7 @@ internal static class TplTextureWriter
         int offset = 0;
         ForBlocks(image, 8, 4, (x, y) =>
         {
-            var pixel = image.GetPixel(x, y);
+            var pixel = GetTplPixel(image, x, y);
             output[offset++] = (byte)((Quantize4(pixel.A) << 4) | Quantize4(pixel.Intensity));
         });
         return output;
@@ -152,7 +152,7 @@ internal static class TplTextureWriter
         int offset = 0;
         ForBlocks(image, 4, 4, (x, y) =>
         {
-            var pixel = image.GetPixel(x, y);
+            var pixel = GetTplPixel(image, x, y);
             WriteUInt16(output, offset, (ushort)((pixel.A << 8) | pixel.Intensity));
             offset += 2;
         });
@@ -165,7 +165,7 @@ internal static class TplTextureWriter
         int offset = 0;
         ForBlocks(image, 4, 4, (x, y) =>
         {
-            WriteUInt16(output, offset, ToRgb565(image.GetPixel(x, y)));
+            WriteUInt16(output, offset, ToRgb565(GetTplPixel(image, x, y)));
             offset += 2;
         });
         return output;
@@ -177,7 +177,7 @@ internal static class TplTextureWriter
         int offset = 0;
         ForBlocks(image, 4, 4, (x, y) =>
         {
-            WriteUInt16(output, offset, ToRgb5A3(image.GetPixel(x, y)));
+            WriteUInt16(output, offset, ToRgb5A3(GetTplPixel(image, x, y)));
             offset += 2;
         });
         return output;
@@ -197,7 +197,7 @@ internal static class TplTextureWriter
                 {
                     for (int x = 0; x < 4; x++)
                     {
-                        var pixel = image.GetPixel(blockX + x, blockY + y);
+                        var pixel = GetTplPixel(image, blockX + x, blockY + y);
                         output[offset++] = pixel.A;
                         output[offset++] = pixel.R;
                     }
@@ -207,7 +207,7 @@ internal static class TplTextureWriter
                 {
                     for (int x = 0; x < 4; x++)
                     {
-                        var pixel = image.GetPixel(blockX + x, blockY + y);
+                        var pixel = GetTplPixel(image, blockX + x, blockY + y);
                         output[offset++] = pixel.G;
                         output[offset++] = pixel.B;
                     }
@@ -239,6 +239,9 @@ internal static class TplTextureWriter
 
     private static int BlockCount(int value, int blockSize)
         => (value + blockSize - 1) / blockSize;
+
+    private static Rgba32 GetTplPixel(TgaImage image, int x, int y)
+        => image.GetPixel(image.Width - 1 - x, y);
 
     private static int PaddedSize(int value, int blockSize)
         => BlockCount(value, blockSize) * blockSize;

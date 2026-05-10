@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using LayoutConverter.Core.Schema.Rlan;
 
 namespace LayoutConverter.Core.Brlan;
 
 public static class BrlanMergeHelper
 {
-    /// <summary>
-    /// Realiza un merge secuencial de archivos BRLAN generados por split (prefijo_LayoutName).
-    /// </summary>
     public static Document MergeSequential(string layoutName, IReadOnlyList<string> splitBrlanPaths)
     {
         var masterDoc = new Document
@@ -18,128 +11,204 @@ public static class BrlanMergeHelper
             head = new Head
             {
                 create = new HeadCreate { user = "MergeHelper", date = DateTime.Now },
-                generator = new HeadGenerator { name = "LayoutConverter", version = "1.0.0" }
+                generator = new HeadGenerator { name = "LayoutConverter", version = "1.0.0" },
             },
-            body = new DocumentBody()
+            body = new DocumentBody(),
         };
 
-        var masterRlan = new RLAN { startFrame = 0, convertStartFrame = 0 };
         var masterTags = new List<AnimTag>();
-        var mergedContents = new Dictionary<string, AnimContent>();
+        var mergedAnimations = new Dictionary<AnimationType, MergedAnimation>();
 
         int currentOffset = 0;
+        int maxPieceDuration = 0;
 
-        foreach (var path in splitBrlanPaths)
+        var sortedPaths = SortSplitPaths(layoutName, splitBrlanPaths).ToArray();
+        for (int pathIndex = 0; pathIndex < sortedPaths.Length; pathIndex++)
         {
-            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(path);
-            
-            // Extraer el tagName asumiendo el patrón "LayoutName_TagName"
-            string tagName = fileNameWithoutExt;
-            if (fileNameWithoutExt.StartsWith(layoutName + "_", StringComparison.OrdinalIgnoreCase))
+            var path = sortedPaths[pathIndex];
+            string tagName = ExtractTagName(layoutName, path);
+            var subDoc = BrlanBinaryReader.ReadDocument(path);
+            var subRlans = subDoc.body?.rlan ?? Array.Empty<RLAN>();
+            if (subRlans.Length == 0)
             {
-                tagName = fileNameWithoutExt.Substring(layoutName.Length + 1);
+                continue;
             }
 
-            var subDoc = BrlanBinaryReader.ReadDocument(path);
-            var subRlan = subDoc.body?.rlan?.FirstOrDefault();
-            
-            if (subRlan == null) continue;
+            int pieceDuration = subRlans.Max(static rlan => rlan.endFrame - rlan.startFrame);
+            int? trimAfterFrame = pathIndex < sortedPaths.Length - 1 ? pieceDuration : null;
+            maxPieceDuration = Math.Max(maxPieceDuration, pieceDuration);
 
-            // Determinar la duración de la pieza (asumiendo que arranca en 0 internamente si fue spliteada)
-            int pieceDuration = subRlan.endFrame - subRlan.startFrame;
-
-            // Crear el AnimTag correspondiente para el maestro
-            var tag = new AnimTag
+            masterTags.Add(new AnimTag
             {
                 name = tagName,
-                fileName = tagName, // OldCode usa fileName="Start" y luego le prepende "LayoutName_"
+                fileName = tagName,
                 startFrame = currentOffset,
                 endFrame = currentOffset + pieceDuration,
-                animLoop = AnimLoopType.OneTime // OldCode por defecto en el primer split
-            };
-            masterTags.Add(tag);
+                animLoop = AnimLoopType.OneTime,
+            });
 
-            // Copiar y empalmar los contenidos de la animación
-            if (subRlan.animContent != null)
+            foreach (var subRlan in subRlans)
             {
-                // Solo para el master RLAN animType, tomamos el del primer chunk
-                if (currentOffset == 0) masterRlan.animType = subRlan.animType;
-
-                foreach (var content in subRlan.animContent)
+                if (!mergedAnimations.TryGetValue(subRlan.animType, out var mergedAnimation))
                 {
-                    if (!mergedContents.TryGetValue(content.name, out var masterContent))
+                    mergedAnimation = new MergedAnimation(subRlan.animType);
+                    mergedAnimations.Add(subRlan.animType, mergedAnimation);
+                }
+
+                foreach (var content in subRlan.animContent ?? Array.Empty<AnimContent>())
+                {
+                    string contentName = content.name ?? string.Empty;
+                    if (!mergedAnimation.Contents.TryGetValue(contentName, out var masterContent))
                     {
-                        masterContent = new AnimContent { name = content.name, Items = Array.Empty<AnimTarget>() };
-                        mergedContents[content.name] = masterContent;
+                        masterContent = new AnimContent { name = contentName, Items = Array.Empty<AnimTarget>() };
+                        mergedAnimation.Contents.Add(contentName, masterContent);
                     }
 
-                    // Iterar sobre los targets (TranslateY, ScaleX, etc.)
-                    var mergedTargets = new List<AnimTarget>(masterContent.Items);
-                    foreach (var target in content.Items)
+                    var mergedTargets = new List<AnimTarget>(masterContent.Items ?? Array.Empty<AnimTarget>());
+                    var occurrenceByTarget = new Dictionary<(AnimTargetType Target, byte Id), int>();
+                    foreach (var target in content.Items ?? Array.Empty<AnimTarget>())
                     {
-                        // Desplazar todos los keyframes sumándoles el currentOffset
-                        var shiftedTarget = ShiftTargetKeys(target, currentOffset);
-                        
-                        // Fusionar con un target existente del mismo tipo (si lo hay)
-                        var existingTarget = mergedTargets.FirstOrDefault(t => t.target == shiftedTarget.target);
+                        var shiftedTarget = ShiftTargetKeys(target, currentOffset, trimAfterFrame);
+                        var targetKey = (shiftedTarget.target, shiftedTarget.id);
+                        occurrenceByTarget.TryGetValue(targetKey, out int occurrence);
+                        occurrenceByTarget[targetKey] = occurrence + 1;
+
+                        var existingTarget = mergedTargets
+                            .Where(t => t.target == shiftedTarget.target && t.id == shiftedTarget.id)
+                            .Skip(occurrence)
+                            .FirstOrDefault();
+
                         if (existingTarget != null)
                         {
-                            existingTarget.key = MergeKeyframes(existingTarget.key, shiftedTarget.key);
+                            existingTarget.key = MergeKeyframes(
+                                existingTarget.key ?? Array.Empty<Hermite>(),
+                                shiftedTarget.key ?? Array.Empty<Hermite>());
                         }
                         else
                         {
                             mergedTargets.Add(shiftedTarget);
                         }
                     }
+
                     masterContent.Items = mergedTargets.ToArray();
                 }
             }
 
-            // Mover el offset para la siguiente animación en el empalme
             currentOffset += pieceDuration;
         }
 
-        masterRlan.endFrame = currentOffset;
-        masterRlan.convertEndFrame = currentOffset;
-        masterRlan.animContent = mergedContents.Values.ToArray();
-
         masterDoc.body.animTag = masterTags.ToArray();
-        masterDoc.body.rlan = new[] { masterRlan };
+        masterDoc.body.rlan = mergedAnimations.Values
+            .OrderBy(static animation => GetAnimationTypeOrder(animation.Type))
+            .Select(animation => new RLAN
+            {
+                animType = animation.Type,
+                startFrame = 0,
+                endFrame = maxPieceDuration,
+                convertStartFrame = 0,
+                convertEndFrame = maxPieceDuration,
+                animContent = animation.Contents.Values.ToArray(),
+            })
+            .ToArray();
 
         return masterDoc;
     }
 
-    private static AnimTarget ShiftTargetKeys(AnimTarget target, int offset)
+    private static IEnumerable<string> SortSplitPaths(string layoutName, IReadOnlyList<string> splitBrlanPaths)
+        => splitBrlanPaths
+            .Select((path, index) => new
+            {
+                Path = path,
+                Index = index,
+                TagName = ExtractTagName(layoutName, path),
+            })
+            .OrderBy(static item => GetTagOrder(item.TagName))
+            .ThenBy(static item => item.TagName, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(static item => item.Index)
+            .Select(static item => item.Path);
+
+    private static string ExtractTagName(string layoutName, string path)
     {
-        // Duplicar el target para no mutar el original leído del archivo
-        var newTarget = target.Duplicate(target.key);
-        
+        var fileNameWithoutExt = Path.GetFileNameWithoutExtension(path);
+        return fileNameWithoutExt.StartsWith(layoutName + "_", StringComparison.OrdinalIgnoreCase)
+            ? fileNameWithoutExt.Substring(layoutName.Length + 1)
+            : fileNameWithoutExt;
+    }
+
+    private static int GetTagOrder(string tagName)
+    {
+        if (tagName.Equals("Start", StringComparison.OrdinalIgnoreCase))
+        {
+            return 0;
+        }
+
+        if (tagName.Equals("Loop", StringComparison.OrdinalIgnoreCase))
+        {
+            return 1;
+        }
+
+        if (tagName.Equals("End", StringComparison.OrdinalIgnoreCase))
+        {
+            return 2;
+        }
+
+        return 10;
+    }
+
+    private static int GetAnimationTypeOrder(AnimationType type)
+        => type switch
+        {
+            AnimationType.PainSRT => 0,
+            AnimationType.VertexColor => 1,
+            AnimationType.MaterialColor => 2,
+            AnimationType.TextureSRT => 3,
+            AnimationType.TexturePattern => 4,
+            AnimationType.IndTextureSRT => 5,
+            AnimationType.Visibility => 6,
+            _ => 100,
+        };
+
+    private static AnimTarget ShiftTargetKeys(AnimTarget target, int offset, int? trimAfterFrame)
+    {
+        var sourceKeys = target.key ?? Array.Empty<Hermite>();
+        if (trimAfterFrame is int maxFrame)
+        {
+            sourceKeys = sourceKeys
+                .Where(key => key.frame <= maxFrame)
+                .ToArray();
+        }
+
+        var newTarget = target.Duplicate(sourceKeys);
+
         if (offset != 0 && newTarget.key != null)
         {
             var newKeys = new Hermite[newTarget.key.Length];
             for (int i = 0; i < newTarget.key.Length; i++)
             {
-                var k = newTarget.key[i];
-                newKeys[i] = k.Duplicate(k.frame + offset);
+                var key = newTarget.key[i];
+                newKeys[i] = key.Duplicate(key.frame + offset);
             }
+
             newTarget.key = newKeys;
         }
-        
+
         return newTarget;
     }
 
     private static Hermite[] MergeKeyframes(Hermite[] existing, Hermite[] incoming)
+        => existing
+            .Concat(incoming)
+            .OrderBy(static key => key.frame)
+            .ToArray();
+
+    private sealed class MergedAnimation
     {
-        var allKeys = new List<Hermite>(existing);
-        
-        foreach (var k in incoming)
+        public MergedAnimation(AnimationType type)
         {
-            // Remover keyframes exactos en el empalme para que no se superpongan
-            // Mantiene el incoming si hay colisión (para asegurar la continuidad de la nueva curva)
-            allKeys.RemoveAll(e => Math.Abs(e.frame - k.frame) < 0.001f);
-            allKeys.Add(k);
+            Type = type;
         }
 
-        return allKeys.OrderBy(k => k.frame).ToArray();
+        public AnimationType Type { get; }
+        public Dictionary<string, AnimContent> Contents { get; } = new(StringComparer.Ordinal);
     }
 }

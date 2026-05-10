@@ -377,6 +377,11 @@ public sealed class AnimationBinaryExportCoordinator
             .Take(last - first + 1)
             .ToArray();
 
+        if (selected[^1].frame < startFrame)
+        {
+            return target.Duplicate(Array.Empty<Hermite>());
+        }
+
         return target.Duplicate(selected);
     }
 

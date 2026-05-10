@@ -241,8 +241,8 @@ public sealed class BrlytBinaryWriter
         // 1. TexMap (Bit 0-3)
         // 2. TexMatrix (Bit 4-7)
         // 3. TexCoordGen (Bit 8-11)
-        // 4. Material Color (Bit 27)
-        // 5. Channel Control (Bit 25)
+        // 4. Channel Control (Bit 25)
+        // 5. Material Color (Bit 27)
         // 6. Swap Table (Bit 12)
         // 7. Indirect Matrix (Bit 13-14)
         // 8. Indirect Stage (Bit 15-17)
@@ -254,8 +254,8 @@ public sealed class BrlytBinaryWriter
         if ((flags & 0x000000F0) != 0) WriteTexMatrixBlock(material);
         if ((flags & 0x00000F00) != 0) WriteTexCoordGenBlock(material);
 
-        if ((flags & 0x08000000) != 0) WriteColor(material.MaterialColorRegister);
         if ((flags & 0x02000000) != 0) WriteChannelControls(material.ChannelControls!);
+        if ((flags & 0x08000000) != 0) WriteColor(material.MaterialColorRegister);
         if ((flags & 0x00001000) != 0) WriteSwapTables(material.SwapTables!);
         
         int indirectMatrixCount = (int)((flags >> 13) & 0x03);
@@ -384,7 +384,7 @@ public sealed class BrlytBinaryWriter
         //   24    blendMode present
         //   25    channelControl present
         //   27    matColReg present
-        uint revoFlags = 0x80000000; // Set Revo Flag
+        uint revoFlags = 0;
         revoFlags |= (uint)(texMapCount & 0x0F);
         revoFlags |= (uint)((texMatrixCount & 0x0F) << 4);
         revoFlags |= (uint)((texCoordGenCount & 0x0F) << 8);
@@ -1098,9 +1098,8 @@ public sealed class BrlytBinaryWriter
     {
         Span<byte> buffer = stackalloc byte[16];
 
-        // texMap is actually 9-bit in the binary (8 bits in buffer[2], high bit in buffer[3] bit 0)
         short texMapVal = stage.texMap;
-        if (texMapVal < 0) texMapVal = 0x1FF; // 9-bit -1
+        if (texMapVal < 0) texMapVal = 0xFF;
 
         byte texCoord = stage.texCoordGen < 0 ? (byte)0xFF : unchecked((byte)stage.texCoordGen);
 

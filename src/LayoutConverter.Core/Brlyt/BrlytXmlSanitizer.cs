@@ -59,30 +59,38 @@ public static class BrlytXmlSanitizer
         }
     }
 
-    private static void FillLegacyDefaults(Material mat, Material_Revo revo)
+    private static void FillLegacyDefaults(Material mat, Material_Revo? revo)
     {
         mat.blackColor ??= new BlackColor { r = 0, g = 0, b = 0 };
         mat.whiteColor ??= new WhiteColor { r = 255, g = 255, b = 255 };
         
-        if (mat.texMap == null && revo.texMap != null) mat.texMap = revo.texMap;
-        if (mat.texMatrix == null && revo.texMatrix != null) mat.texMatrix = revo.texMatrix;
-        if (mat.texCoordGen == null && revo.texCoordGen != null) mat.texCoordGen = revo.texCoordGen;
+        if (mat.texMap == null && revo?.texMap != null) mat.texMap = revo.texMap;
+        if (mat.texMatrix == null && revo?.texMatrix != null) mat.texMatrix = revo.texMatrix;
+        if (mat.texCoordGen == null && revo?.texCoordGen != null) mat.texCoordGen = revo.texCoordGen;
 
-        int requiredStages = Math.Max(1, (int)revo.tevStageNum);
+        int requiredStages = mat.textureStage?.Length
+            ?? Math.Min(mat.texMap?.Length ?? 0, mat.texCoordGen?.Length ?? 0);
         if (mat.textureStage == null || mat.textureStage.Length < requiredStages)
         {
+            var oldStages = mat.textureStage ?? Array.Empty<MaterialTextureStage>();
             var newStages = new MaterialTextureStage[requiredStages];
-            int existing = mat.textureStage?.Length ?? 0;
             for (int i = 0; i < requiredStages; i++)
             {
-                newStages[i] = i < existing ? mat.textureStage[i] : new MaterialTextureStage { texMap = (sbyte)i, texCoordGen = (sbyte)i };
+                newStages[i] = i < oldStages.Length ? oldStages[i] : new MaterialTextureStage { texMap = (sbyte)i, texCoordGen = (sbyte)i };
             }
             mat.textureStage = newStages;
         }
         
-        if (mat.texBlendRatio == null || mat.texBlendRatio.Length == 0)
+        int requiredBlendRatios = Math.Max(1, Math.Max(mat.texMap?.Length ?? 0, mat.textureStage?.Length ?? 0));
+        if (mat.texBlendRatio == null || mat.texBlendRatio.Length < requiredBlendRatios)
         {
-            mat.texBlendRatio = new[] { new TexBlendRatio { color = 255 } };
+            var oldRatios = mat.texBlendRatio ?? Array.Empty<TexBlendRatio>();
+            var newRatios = new TexBlendRatio[requiredBlendRatios];
+            for (int i = 0; i < requiredBlendRatios; i++)
+            {
+                newRatios[i] = i < oldRatios.Length ? oldRatios[i] : new TexBlendRatio { color = 255 };
+            }
+            mat.texBlendRatio = newRatios;
         }
     }
 
@@ -141,7 +149,7 @@ public static class BrlytXmlSanitizer
             new Material_RevoIndirectStage { texMap = 0, texCoordGen = 0, scale_s = IndTexScale.V1, scale_t = IndTexScale.V1 }
         };
 
-        int requiredStages = GetRequiredTevStageCount(material, legacy);
+        int requiredStages = Math.Max(1, (int)material.tevStageNum);
         if (material.tevStage == null || material.tevStage.Length < requiredStages)
         {
             var oldStages = material.tevStage ?? Array.Empty<Material_RevoTevStage>();
@@ -149,11 +157,10 @@ public static class BrlytXmlSanitizer
             Array.Copy(oldStages, newStages, oldStages.Length);
             for (int i = oldStages.Length; i < requiredStages; i++)
             {
-                newStages[i] = CreateDefaultTevStage(i, material, legacy, requiredStages);
+                newStages[i] = CreateDefaultTevStage(i, material);
             }
             material.tevStage = newStages;
         }
-        material.tevStageNum = (byte)material.tevStage.Length;
 
         // Sanitize every tevStage to ensure color, alpha, and indirect nodes are present
         foreach (var stage in material.tevStage)
@@ -174,44 +181,8 @@ public static class BrlytXmlSanitizer
         };
     }
 
-    private static int GetRequiredTevStageCount(Material_Revo material, Material legacy)
+    private static Material_RevoTevStage CreateDefaultTevStage(int index, Material_Revo material)
     {
-        if (material.tevStageNum != 1 || material.tevStage != null)
-        {
-            return Math.Max(1, (int)material.tevStageNum);
-        }
-
-        return UsesTwoStageLegacyRevoDefault(legacy) ? 2 : 1;
-    }
-
-    private static bool UsesTwoStageLegacyRevoDefault(Material legacy)
-        => legacy.name?.Contains("JPN", StringComparison.Ordinal) == true
-            && legacy.blackColor != null
-            && legacy.whiteColor != null
-            && legacy.blackColor.r == legacy.whiteColor.r
-            && legacy.blackColor.g == legacy.whiteColor.g
-            && legacy.blackColor.b == legacy.whiteColor.b
-            && legacy.blackColor.r == 0
-            && legacy.blackColor.g == 0
-            && legacy.blackColor.b == 0;
-
-    private static Material_RevoTevStage CreateDefaultTevStage(int index, Material_Revo material, Material legacy, int stageCount)
-    {
-        if (stageCount > 1 && index == 0)
-        {
-            return new Material_RevoTevStage
-            {
-                colorChannel = TevChannelID.ColorNull,
-                texMap = 0,
-                texCoordGen = 0,
-                rasColSwap = 0,
-                texColSwap = 0,
-                color = new Material_RevoTevStageColor { a = TevColorArg.C0, b = TevColorArg.C1, c = TevColorArg.TexC, d = TevColorArg.V0, konst = TevKColorSel.K3_a, op = TevOpC.Add, bias = TevBias.V0, scale = TevScale.V1, clamp = false, outReg = TevRegID.Prev },
-                alpha = new Material_RevoTevStageAlpha { a = TevAlphaArg.A0, b = TevAlphaArg.A1, c = TevAlphaArg.TexA, d = TevAlphaArg.V0, konst = TevKAlphaSel.K3_a, op = TevOpA.Add, bias = TevBias.V0, scale = TevScale.V1, clamp = false, outReg = TevRegID.Prev },
-                indirect = new Material_RevoTevStageIndirect { indStage = 0, format = IndTexFormat.V8, bias = IndTexBiasSel.None, matrix = IndTexMtxID.Off, wrap_s = IndTexWrap.Off, wrap_t = IndTexWrap.Off, addPrev = false, utcLod = false, alpha = IndTexAlphaSel.Off }
-            };
-        }
-
         return new Material_RevoTevStage
         {
             colorChannel = TevChannelID.Color0a0,

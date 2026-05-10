@@ -230,18 +230,24 @@ public static class BrlanBinaryReader
             }
             else
             {
-                keys[i] = new Hermite
-                {
-                    frame = frame,
-                    value = ReadSingle(bytes, offset),
-                    slope = ReadSingle(bytes, offset + 4),
-                };
+                var key = CreateKey(type);
+                key.frame = frame;
+                key.value = ReadSingle(bytes, offset);
+                key.slope = ReadSingle(bytes, offset + 4);
+                keys[i] = key;
                 offset += 8;
             }
         }
 
         return keys;
     }
+
+    private static Hermite CreateKey(AnimationType type)
+        => type switch
+        {
+            AnimationType.VertexColor or AnimationType.MaterialColor => new HermiteU8(),
+            _ => new Hermite(),
+        };
 
     private static AnimTarget CreateTarget(AnimationType type)
         => type switch

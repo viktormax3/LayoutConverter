@@ -168,7 +168,7 @@ internal static class TplTextureReader
             return;
         }
 
-        pixels[y * width + x] = pixel;
+        pixels[y * width + (width - 1 - x)] = pixel;
     }
 
     private static Rgba32 FromIntensity(int value)
