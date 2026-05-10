@@ -126,7 +126,8 @@ public static class BrlanBinaryReader
             tag.animLoop = loop ? AnimLoopType.Loop : AnimLoopType.OneTime;
         }
 
-        var byType = new SortedDictionary<AnimationType, List<AnimContent>>();
+        var byType = new Dictionary<AnimationType, List<AnimContent>>();
+        var typeOrder = new List<AnimationType>();
         for (int i = 0; i < contentCount; i++)
         {
             int contentOffset = sectionStart + checked((int)ReadUInt32(bytes, contentOffsetsOffset + i * 4));
@@ -136,14 +137,16 @@ public static class BrlanBinaryReader
                 {
                     contents = new List<AnimContent>();
                     byType.Add(group.Type, contents);
+                    typeOrder.Add(group.Type);
                 }
 
                 contents.Add(new AnimContent { name = group.ContentName, Items = group.Targets.ToArray() });
             }
         }
 
-        foreach (var (type, contents) in byType)
+        foreach (var type in typeOrder)
         {
+            var contents = byType[type];
             yield return new RLAN
             {
                 animType = type,

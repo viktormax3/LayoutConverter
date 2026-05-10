@@ -3,11 +3,13 @@ param(
     [Alias("FullName")]
     [string[]] $InputPath,
 
-    [string] $OutputRoot = "scratch_rlyt_roundtrip_validation",
+    [string] $OutputRoot = "scratchs\rlyt_roundtrip_validation",
 
     [string] $CliPath = "src\LayoutConverter.Cli\bin\Debug\net8.0\layout-converter.dll",
 
     [switch] $Banner,
+
+    [switch] $SkipVersionCheck,
 
     [switch] $KeepGoing
 )
@@ -109,6 +111,9 @@ foreach ($input in $allInputs) {
         if ($Banner) {
             $compileArgs += "--banner"
         }
+        if ($SkipVersionCheck) {
+            $compileArgs += "--no-check-version"
+        }
 
         Invoke-LayoutConverter ($compileArgs + @($inputItem.FullName, $firstOutput))
         $firstBrlyt = Get-OutputBrlyt $firstOutput $caseName
@@ -145,7 +150,7 @@ foreach ($input in $allInputs) {
     }
     catch {
         $failures++
-        Write-Error $_
+        Write-Warning $_
         if (-not $KeepGoing) {
             throw
         }
