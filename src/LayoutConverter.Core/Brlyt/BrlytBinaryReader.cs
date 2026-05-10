@@ -12,10 +12,14 @@ public static class BrlytBinaryReader
     private const int WindowPayloadSize = 28;
     private const int WindowContentPayloadSize = 20;
 
+    private static bool _isLittleEndian;
+
     public static Document ReadDocument(string path)
     {
         var bytes = File.ReadAllBytes(path);
         var container = BinaryLayoutContainerReader.Read(new MemoryStream(bytes), path);
+        _isLittleEndian = container.ByteOrderMark == 0xFFFE;
+        
         if (container.Magic != "RLYT")
         {
             throw new InvalidDataException($"Expected RLYT binary, found {container.Magic}: {path}");
@@ -61,17 +65,29 @@ public static class BrlytBinaryReader
             case "wnd1":
             case "bnd1":
                 var pane = ReadPane(section, bytes, materials, fonts);
-                panes.Add(pane);
-                lastUserDataTarget = pane;
                 var paneNode = new PaneNode(pane.name);
                 if (paneStack.Count > 0)
                 {
+                    // Normal child pane — add to paneSet and hierarchy.
+                    panes.Add(pane);
                     paneStack.Peek().Children.Add(paneNode);
+                }
+                else if (section.Magic == "pan1"
+                    && string.Equals(pane.name, "RootPane", StringComparison.Ordinal)
+                    && paneRoots.Count == 0)
+                {
+                    // Virtual root pane: implicit in the binary, not stored in the XML paneSet.
+                    // Register it as the hierarchy root so the writer can reconstruct it,
+                    // but do not add it to the paneSet — matching native LayoutEditor XML output.
+                    paneRoots.Add(paneNode);
                 }
                 else
                 {
+                    // Real top-level pane (unusual layout without virtual root).
+                    panes.Add(pane);
                     paneRoots.Add(paneNode);
                 }
+                lastUserDataTarget = pane;
                 lastPaneNode = paneNode;
                 break;
             case "usd1":
@@ -216,21 +232,12 @@ public static class BrlytBinaryReader
     private static MaterialSlot ReadMaterial(byte[] bytes, int offset, IReadOnlyList<TextureFile> textures)
     {
         uint flags = ReadUInt32(bytes, offset + 60);
-        int texMapCount = (int)(flags & 0x0F);
-        int texMatrixCount = (int)((flags >> 4) & 0x0F);
-        int texCoordGenCount = (int)((flags >> 8) & 0x0F);
-        bool hasRevoPayload = ((flags >> 18) & 0x1F) > 0
-            || ((flags >> 23) & 0x1F) != 0
-            || ((flags >> 13) & 0x1F) != 0;
-
+        bool isRevo = HasRevoMaterialPayload(flags);
         var material = new Material
         {
             name = ReadFixedAscii(bytes, offset, 20),
             blackColor = ReadBlackColorRegister(bytes, offset + 20),
             whiteColor = ReadWhiteColorRegister(bytes, offset + 28),
-            texMap = new TexMap[texMapCount],
-            texMatrix = new TexMatrix[texMatrixCount],
-            texCoordGen = new TexCoordGen[texCoordGenCount],
         };
 
         var tevColorRegisters = new[]
@@ -248,43 +255,96 @@ public static class BrlytBinaryReader
         };
 
         int cursor = offset + 64;
-        for (int i = 0; i < texMapCount; i++)
-        {
-            material.texMap[i] = ReadTexMap(bytes, cursor + i * 4, textures);
-        }
+        Material_Revo? materialRevo = null;
 
-        cursor += texMapCount * 4;
-        for (int i = 0; i < texMatrixCount; i++)
+        if (isRevo)
         {
-            material.texMatrix[i] = ReadTexMatrix(bytes, cursor + i * 20);
+            materialRevo = ReadRevoMaterial(bytes, cursor, flags, material, tevColorRegisters, tevConstantRegisters, textures);
         }
-
-        cursor += texMatrixCount * 20;
-        for (int i = 0; i < texCoordGenCount; i++)
+        else
         {
-            material.texCoordGen[i] = ReadTexCoordGen(bytes, cursor + i * 4);
-        }
+            // Legacy layout: Map (0-3), Matrix (4-7), CoordGen (8-11), TevStage (12-14)
+            int texMapCount = (int)(flags & 0x0F);
+            int texMatrixCount = (int)((flags >> 4) & 0x0F);
+            int texCoordGenCount = (int)((flags >> 8) & 0x0F);
+            int tevStageCount = (int)((flags >> 12) & 0x07);
 
-        cursor += texCoordGenCount * 4;
-        Material_Revo? materialRevo = hasRevoPayload
-            ? ReadRevoMaterial(bytes, cursor, flags, material, tevColorRegisters, tevConstantRegisters)
-            : null;
+            material.texMap = new TexMap[texMapCount];
+            for (int i = 0; i < texMapCount; i++)
+            {
+                material.texMap[i] = ReadTexMap(bytes, cursor, textures);
+                cursor += 4;
+            }
+
+            material.texMatrix = new TexMatrix[texMatrixCount];
+            for (int i = 0; i < texMatrixCount; i++)
+            {
+                material.texMatrix[i] = ReadTexMatrix(bytes, cursor);
+                cursor += 20;
+            }
+
+            material.texCoordGen = new TexCoordGen[texCoordGenCount];
+            for (int i = 0; i < texCoordGenCount; i++)
+            {
+                material.texCoordGen[i] = ReadTexCoordGen(bytes, cursor);
+                cursor += 4;
+            }
+
+            int textureStageCount = tevStageCount > 0 ? tevStageCount : Math.Min(texMapCount, texCoordGenCount);
+            material.textureStage = new MaterialTextureStage[textureStageCount];
+            for (int i = 0; i < textureStageCount; i++)
+            {
+                if (tevStageCount > 0)
+                {
+                    material.textureStage[i] = ReadLegacyTextureStage(bytes, cursor);
+                    cursor += 4;
+                }
+                else
+                {
+                    material.textureStage[i] = new MaterialTextureStage { texMap = (sbyte)i, texCoordGen = (sbyte)i };
+                }
+            }
+
+            if (texMapCount > 0)
+            {
+                material.texBlendRatio = Enumerable.Range(0, texMapCount)
+                    .Select(static _ => new TexBlendRatio { color = 255 })
+                    .ToArray();
+            }
+        }
 
         return new MaterialSlot(material, materialRevo);
     }
 
     private static Material_Revo ReadRevoMaterial(
         byte[] bytes,
-        int payload,
+        int payloadOffset,
         uint flags,
         Material material,
         ColorS10_4[] tevColorRegisters,
-        Color4[] tevConstantRegisters)
+        Color4[] tevConstantRegisters,
+        IReadOnlyList<TextureFile> textures)
     {
+        // Revo Payload Order (MSB to LSB bits according to Tockdom):
+        // 27: Material Color
+        // 25: Channel Control
+        // 24: Blend Mode
+        // 23: Alpha Compare
+        // 18-22: TEV Stage
+        // 15-17: Indirect Stage
+        // 13-14: Indirect Matrix
+        // 12: Swap Table
+        // 8-11: TexCoord Gen
+        // 4-7: TexMatrix
+        // 0-3: TexMap
+
+        int texMapCount = (int)(flags & 0x0F);
+        int texMatrixCount = (int)((flags >> 4) & 0x0F);
+        int texCoordGenCount = (int)((flags >> 8) & 0x0F);
+        bool hasSwapTable = ((flags >> 12) & 0x01) != 0;
         int indirectMatrixCount = (int)((flags >> 13) & 0x03);
         int indirectStageCount = (int)((flags >> 15) & 0x07);
         int tevStageCount = (int)((flags >> 18) & 0x1F);
-        bool hasSwapTable = ((flags >> 12) & 0x01) != 0;
         bool hasAlphaCompare = ((flags >> 23) & 0x01) != 0;
         bool hasBlendMode = ((flags >> 24) & 0x01) != 0;
         bool hasChannelControl = ((flags >> 25) & 0x01) != 0;
@@ -293,16 +353,47 @@ public static class BrlytBinaryReader
         var materialRevo = new Material_Revo
         {
             name = material.name,
-            texMap = material.texMap,
-            texMatrix = material.texMatrix,
-            texCoordGen = material.texCoordGen,
             tevColReg = tevColorRegisters,
             tevConstReg = tevConstantRegisters,
-            tevStageNum = (byte)Math.Min(tevStageCount, byte.MaxValue),
-            indirectStageNum = (byte)Math.Min(indirectStageCount, byte.MaxValue),
+            tevStageNum = (byte)tevStageCount,
+            indirectStageNum = (byte)indirectStageCount,
         };
 
-        int cursor = payload;
+        int cursor = payloadOffset;
+
+        if (texMapCount > 0)
+        {
+            materialRevo.texMap = new TexMap[texMapCount];
+            for (int i = 0; i < texMapCount; i++)
+            {
+                materialRevo.texMap[i] = ReadTexMap(bytes, cursor, textures);
+                cursor += 4;
+            }
+            material.texMap = materialRevo.texMap;
+        }
+
+        if (texMatrixCount > 0)
+        {
+            materialRevo.texMatrix = new TexMatrix[texMatrixCount];
+            for (int i = 0; i < texMatrixCount; i++)
+            {
+                materialRevo.texMatrix[i] = ReadTexMatrix(bytes, cursor);
+                cursor += 20;
+            }
+            material.texMatrix = materialRevo.texMatrix;
+        }
+
+        if (texCoordGenCount > 0)
+        {
+            materialRevo.texCoordGen = new TexCoordGen[texCoordGenCount];
+            for (int i = 0; i < texCoordGenCount; i++)
+            {
+                materialRevo.texCoordGen[i] = ReadTexCoordGen(bytes, cursor);
+                cursor += 4;
+            }
+            material.texCoordGen = materialRevo.texCoordGen;
+        }
+
         if (hasChannelControl)
         {
             materialRevo.channelControl = ReadChannelControls(bytes, cursor);
@@ -326,10 +417,9 @@ public static class BrlytBinaryReader
             materialRevo.indirectMatrix = new TexMatrix[indirectMatrixCount];
             for (int i = 0; i < indirectMatrixCount; i++)
             {
-                materialRevo.indirectMatrix[i] = ReadTexMatrix(bytes, cursor + i * 20);
+                materialRevo.indirectMatrix[i] = ReadTexMatrix(bytes, cursor);
+                cursor += 20;
             }
-
-            cursor += indirectMatrixCount * 20;
         }
 
         if (indirectStageCount > 0)
@@ -337,22 +427,19 @@ public static class BrlytBinaryReader
             materialRevo.indirectStage = new Material_RevoIndirectStage[indirectStageCount];
             for (int i = 0; i < indirectStageCount; i++)
             {
-                materialRevo.indirectStage[i] = ReadIndirectStage(bytes, cursor + i * 4);
+                materialRevo.indirectStage[i] = ReadIndirectStage(bytes, cursor);
+                cursor += 4;
             }
-
-            cursor += indirectStageCount * 4;
         }
 
         if (tevStageCount > 0)
         {
-            int count = Math.Min(tevStageCount, 16);
-            materialRevo.tevStage = new Material_RevoTevStage[count];
-            for (int i = 0; i < count; i++)
+            materialRevo.tevStage = new Material_RevoTevStage[tevStageCount];
+            for (int i = 0; i < tevStageCount; i++)
             {
-                materialRevo.tevStage[i] = ReadTevStage(bytes, cursor + i * 16);
+                materialRevo.tevStage[i] = ReadTevStage(bytes, cursor);
+                cursor += 16;
             }
-
-            cursor += count * 16;
         }
 
         if (hasAlphaCompare)
@@ -364,10 +451,14 @@ public static class BrlytBinaryReader
         if (hasBlendMode)
         {
             materialRevo.blendMode = ReadBlendMode(bytes, cursor);
+            cursor += 4;
         }
 
         return materialRevo;
     }
+
+    private static bool HasRevoMaterialPayload(uint flags)
+        => ((flags >> 12) & 0x001FFFFF) != 0;
 
     private static Pane ReadPane(BinaryLayoutSection section, byte[] bytes, IReadOnlyList<MaterialSlot> materials, IReadOnlyList<FontFile> fonts)
     {
@@ -766,30 +857,30 @@ public static class BrlytBinaryReader
                 {
                     channel = channel.channel,
                     materialSource = channel.materialSource,
-                }).ToArray() ?? Array.Empty<Material_RevoChannelControl>(),
+                }).ToArray(),
                 matColReg = source.matColReg,
-                tevColReg = source.tevColReg?.Select(static color => new ColorS10_4(color.r, color.g, color.b, color.a)).ToArray() ?? Array.Empty<ColorS10_4>(),
-                tevConstReg = source.tevConstReg?.Select(static color => new Color4(color.r, color.g, color.b, color.a)).ToArray() ?? Array.Empty<Color4>(),
-                texMap = source.texMap?.Select(CloneTexMap).ToArray() ?? Array.Empty<TexMap>(),
-                texMatrix = source.texMatrix?.Select(CloneTexMatrix).ToArray() ?? Array.Empty<TexMatrix>(),
-                texCoordGen = source.texCoordGen?.Select(CloneTexCoordGen).ToArray() ?? Array.Empty<TexCoordGen>(),
+                tevColReg = source.tevColReg?.Select(static color => new ColorS10_4(color.r, color.g, color.b, color.a)).ToArray(),
+                tevConstReg = source.tevConstReg?.Select(static color => new Color4(color.r, color.g, color.b, color.a)).ToArray(),
+                texMap = source.texMap?.Select(CloneTexMap).ToArray(),
+                texMatrix = source.texMatrix?.Select(CloneTexMatrix).ToArray(),
+                texCoordGen = source.texCoordGen?.Select(CloneTexCoordGen).ToArray(),
                 swapTable = source.swapTable?.Select(static table => new Material_RevoSwapTable
                 {
                     r = table.r,
                     g = table.g,
                     b = table.b,
                     a = table.a,
-                }).ToArray() ?? Array.Empty<Material_RevoSwapTable>(),
-                indirectMatrix = source.indirectMatrix?.Select(CloneTexMatrix).ToArray() ?? Array.Empty<TexMatrix>(),
+                }).ToArray(),
+                indirectMatrix = source.indirectMatrix?.Select(CloneTexMatrix).ToArray(),
                 indirectStage = source.indirectStage?.Select(static stage => new Material_RevoIndirectStage
                 {
                     texCoordGen = stage.texCoordGen,
                     texMap = stage.texMap,
                     scale_s = stage.scale_s,
                     scale_t = stage.scale_t,
-                }).ToArray() ?? Array.Empty<Material_RevoIndirectStage>(),
-                tevStage = source.tevStage?.Select(CloneTevStage).ToArray() ?? Array.Empty<Material_RevoTevStage>(),
-                alphaCompare = source.alphaCompare is null ? null! : new Material_RevoAlphaCompare
+                }).ToArray(),
+                tevStage = source.tevStage?.Select(CloneTevStage).ToArray(),
+                alphaCompare = source.alphaCompare is null ? null : new Material_RevoAlphaCompare
                 {
                     comp0 = source.alphaCompare.comp0,
                     ref0 = source.alphaCompare.ref0,
@@ -907,26 +998,32 @@ public static class BrlytBinaryReader
     }
 
     private static Material_RevoIndirectStage ReadIndirectStage(byte[] bytes, int offset)
-        => new()
+    {
+        byte texCoord = ReadByte(bytes, offset);
+        byte texMap = ReadByte(bytes, offset + 1);
+        return new Material_RevoIndirectStage
         {
-            texCoordGen = ReadByte(bytes, offset),
-            texMap = ReadByte(bytes, offset + 1),
+            texCoordGen = texCoord == 0xFF ? (byte)0xFF : texCoord, // Keep as byte but handle 0xFF
+            texMap = texMap == 0xFF ? (byte)0xFF : texMap,
             scale_s = MapIndirectScale(ReadByte(bytes, offset + 2)),
             scale_t = MapIndirectScale(ReadByte(bytes, offset + 3)),
         };
+    }
 
     private static Material_RevoTevStage ReadTevStage(byte[] bytes, int offset)
     {
         byte texCoord = ReadByte(bytes, offset);
         byte colorChannel = ReadByte(bytes, offset + 1);
-        byte texMap = ReadByte(bytes, offset + 2);
+        byte texMapLow = ReadByte(bytes, offset + 2);
         byte packed3 = ReadByte(bytes, offset + 3);
+
+        int fullTexMap = texMapLow | ((packed3 & 0x01) << 8);
 
         return new Material_RevoTevStage
         {
             texCoordGen = texCoord == 0xFF ? (sbyte)-1 : unchecked((sbyte)texCoord),
             colorChannel = MapTevChannel(colorChannel),
-            texMap = texMap == 0xFF ? (sbyte)-1 : unchecked((sbyte)texMap),
+            texMap = fullTexMap == 0x1FF ? (sbyte)-1 : unchecked((sbyte)fullTexMap),
             rasColSwap = (sbyte)((packed3 >> 1) & 0x03),
             texColSwap = (sbyte)((packed3 >> 3) & 0x03),
             color = ReadTevStageColor(bytes, offset + 4),
@@ -1055,6 +1152,19 @@ public static class BrlytBinaryReader
             matrix = MapTexGenMatrix(ReadByte(bytes, offset + 2)),
         };
 
+    private static MaterialTextureStage ReadLegacyTextureStage(byte[] bytes, int offset)
+    {
+        byte texMap = ReadByte(bytes, offset);
+        byte texCoord = ReadByte(bytes, offset + 1);
+        byte indStage = ReadByte(bytes, offset + 2);
+        return new MaterialTextureStage
+        {
+            texMap = texMap == 0xFF ? (sbyte)-1 : unchecked((sbyte)texMap),
+            texCoordGen = texCoord == 0xFF ? (sbyte)-1 : unchecked((sbyte)texCoord),
+            indirectStage = indStage == 0xFF ? (sbyte)-1 : unchecked((sbyte)indStage),
+        };
+    }
+
     private static string GetTextureName(IReadOnlyList<TextureFile> textures, int index)
         => (uint)index < (uint)textures.Count ? textures[index].GetName() : $"Texture{index}";
 
@@ -1086,12 +1196,16 @@ public static class BrlytBinaryReader
         };
 
     private static TevChannelID MapTevChannel(byte value)
-        => value switch
+    {
+        return value switch
         {
+            4 => TevChannelID.Color0a0,
             6 => TevChannelID.ColorZero,
+            7 => TevChannelID.ColorNull,
             0xFF => TevChannelID.ColorNull,
             _ => TevChannelID.Color0a0,
         };
+    }
 
     private static TevColorArg MapTevColorArg(int value)
         => value switch
@@ -1168,20 +1282,72 @@ public static class BrlytBinaryReader
         };
 
     private static TevKColorSel MapTevKonstColor(int value)
-        => value switch
+    {
+        return value switch
         {
-            <= 7 => (TevKColorSel)(value + 20),
-            >= 12 and <= 31 => (TevKColorSel)(value - 12),
-            _ => TevKColorSel.K0,
+            0x00 => TevKColorSel.V8_8,
+            0x01 => TevKColorSel.V7_8,
+            0x02 => TevKColorSel.V6_8,
+            0x03 => TevKColorSel.V5_8,
+            0x04 => TevKColorSel.V4_8,
+            0x05 => TevKColorSel.V3_8,
+            0x06 => TevKColorSel.V2_8,
+            0x07 => TevKColorSel.V1_8,
+            0x0C => TevKColorSel.K0,
+            0x0D => TevKColorSel.K1,
+            0x0E => TevKColorSel.K2,
+            0x0F => TevKColorSel.K3,
+            0x10 => TevKColorSel.K0_r,
+            0x11 => TevKColorSel.K1_r,
+            0x12 => TevKColorSel.K2_r,
+            0x13 => TevKColorSel.K3_r,
+            0x14 => TevKColorSel.K0_g,
+            0x15 => TevKColorSel.K1_g,
+            0x16 => TevKColorSel.K2_g,
+            0x17 => TevKColorSel.K3_g,
+            0x18 => TevKColorSel.K0_b,
+            0x19 => TevKColorSel.K1_b,
+            0x1A => TevKColorSel.K2_b,
+            0x1B => TevKColorSel.K3_b,
+            0x1C => TevKColorSel.K0_a,
+            0x1D => TevKColorSel.K1_a,
+            0x1E => TevKColorSel.K2_a,
+            0x1F => TevKColorSel.K3_a,
+            _ => TevKColorSel.K0
         };
+    }
 
     private static TevKAlphaSel MapTevKonstAlpha(int value)
-        => value switch
+    {
+        return value switch
         {
-            <= 7 => (TevKAlphaSel)(value + 16),
-            >= 16 and <= 31 => (TevKAlphaSel)(value - 16),
-            _ => TevKAlphaSel.K0_r,
+            0x00 => TevKAlphaSel.V8_8,
+            0x01 => TevKAlphaSel.V7_8,
+            0x02 => TevKAlphaSel.V6_8,
+            0x03 => TevKAlphaSel.V5_8,
+            0x04 => TevKAlphaSel.V4_8,
+            0x05 => TevKAlphaSel.V3_8,
+            0x06 => TevKAlphaSel.V2_8,
+            0x07 => TevKAlphaSel.V1_8,
+            0x10 => TevKAlphaSel.K0_r,
+            0x11 => TevKAlphaSel.K1_r,
+            0x12 => TevKAlphaSel.K2_r,
+            0x13 => TevKAlphaSel.K3_r,
+            0x14 => TevKAlphaSel.K0_g,
+            0x15 => TevKAlphaSel.K1_g,
+            0x16 => TevKAlphaSel.K2_g,
+            0x17 => TevKAlphaSel.K3_g,
+            0x18 => TevKAlphaSel.K0_b,
+            0x19 => TevKAlphaSel.K1_b,
+            0x1A => TevKAlphaSel.K2_b,
+            0x1B => TevKAlphaSel.K3_b,
+            0x1C => TevKAlphaSel.K0_a,
+            0x1D => TevKAlphaSel.K1_a,
+            0x1E => TevKAlphaSel.K2_a,
+            0x1F => TevKAlphaSel.K3_a,
+            _ => TevKAlphaSel.K0_r
         };
+    }
 
     private static IndTexFormat MapIndTexFormat(int value)
         => Enum.IsDefined(typeof(IndTexFormat), value) ? (IndTexFormat)value : IndTexFormat.V8;
@@ -1381,28 +1547,32 @@ public static class BrlytBinaryReader
         return bytes[offset];
     }
 
-    private static ushort ReadUInt16(byte[] bytes, int offset)
+    private static uint ReadUInt32(byte[] bytes, int offset)
     {
-        EnsureRange(bytes, offset, 2);
-        return BinaryPrimitives.ReadUInt16BigEndian(bytes.AsSpan(offset, 2));
-    }
-
-    private static short ReadInt16(byte[] bytes, int offset)
-    {
-        EnsureRange(bytes, offset, 2);
-        return BinaryPrimitives.ReadInt16BigEndian(bytes.AsSpan(offset, 2));
+        EnsureRange(bytes, offset, 4);
+        var span = bytes.AsSpan(offset, 4);
+        return _isLittleEndian ? BinaryPrimitives.ReadUInt32LittleEndian(span) : BinaryPrimitives.ReadUInt32BigEndian(span);
     }
 
     private static int ReadInt32(byte[] bytes, int offset)
     {
         EnsureRange(bytes, offset, 4);
-        return BinaryPrimitives.ReadInt32BigEndian(bytes.AsSpan(offset, 4));
+        var span = bytes.AsSpan(offset, 4);
+        return _isLittleEndian ? BinaryPrimitives.ReadInt32LittleEndian(span) : BinaryPrimitives.ReadInt32BigEndian(span);
     }
 
-    private static uint ReadUInt32(byte[] bytes, int offset)
+    private static ushort ReadUInt16(byte[] bytes, int offset)
     {
-        EnsureRange(bytes, offset, 4);
-        return BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(offset, 4));
+        EnsureRange(bytes, offset, 2);
+        var span = bytes.AsSpan(offset, 2);
+        return _isLittleEndian ? BinaryPrimitives.ReadUInt16LittleEndian(span) : BinaryPrimitives.ReadUInt16BigEndian(span);
+    }
+
+    private static short ReadInt16(byte[] bytes, int offset)
+    {
+        EnsureRange(bytes, offset, 2);
+        var span = bytes.AsSpan(offset, 2);
+        return _isLittleEndian ? BinaryPrimitives.ReadInt16LittleEndian(span) : BinaryPrimitives.ReadInt16BigEndian(span);
     }
 
     private static float ReadSingle(byte[] bytes, int offset)

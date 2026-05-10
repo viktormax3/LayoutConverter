@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text;
 using LayoutConverter.Core.IO;
 using LayoutConverter.Core.Models;
@@ -71,9 +71,13 @@ public sealed class BrlytBinaryWriter
 
     private static ushort MapBinaryVersion(string? xmlVersion)
     {
-        if (Version.TryParse(xmlVersion, out var version) && version.Major == 1 && version.Minor is >= 0 and <= 2)
+        // XML Version -> Binary Version mapping:
+        // 1.2.0 -> 0x0008
+        // 1.3.0 -> 0x0009
+        // 1.4.0 -> 0x000A
+        if (Version.TryParse(xmlVersion, out var version) && version.Major == 1 && version.Minor is >= 0 and <= 4)
         {
-            return (ushort)(0x0008 + version.Minor);
+            return (ushort)(0x0006 + version.Minor);
         }
 
         return DefaultBrlytVersion;
@@ -143,21 +147,19 @@ public sealed class BrlytBinaryWriter
 
     private void WriteMaterialEntry(BrlytMaterialEntry material, IReadOnlyList<TextureFile> textures, IReadOnlyList<FontFile> fonts)
     {
-        WriteMaterialHeader(material);
-        WriteTexMapBlock(material, textures);
-        WriteTexMatrixBlock(material);
-        WriteTexCoordGenBlock(material);
+        uint flags = BuildMaterialFlags(material);
+        WriteMaterialHeader(material, flags);
 
         if (!material.HasRevoMaterial)
         {
-            WriteLegacyMaterialPayload(material);
+            WriteLegacyMaterialPayload(material, textures);
             return;
         }
 
-        WriteRevoMaterialPayload(material);
+        WriteRevoMaterialPayload(material, flags, textures);
     }
 
-    private void WriteMaterialHeader(BrlytMaterialEntry material)
+    private void WriteMaterialHeader(BrlytMaterialEntry material, uint flags)
     {
         _writer.WriteFixedAscii(material.Name, 20, zeroTerminate: true);
 
@@ -173,7 +175,7 @@ public sealed class BrlytBinaryWriter
             WriteColor(i < tevConstantRegisters.Length ? tevConstantRegisters[i] : null);
         }
 
-        _writer.WriteUInt32(BuildMaterialFlags(material));
+        _writer.WriteUInt32(flags);
     }
 
     private void WriteTexMapBlock(BrlytMaterialEntry material, IReadOnlyList<TextureFile> textures)
@@ -233,40 +235,86 @@ public sealed class BrlytBinaryWriter
 
 
 
-    private void WriteRevoMaterialPayload(BrlytMaterialEntry material)
+    private void WriteRevoMaterialPayload(BrlytMaterialEntry material, uint flags, IReadOnlyList<TextureFile> textures)
     {
-        if ((material.ChannelControls?.Length ?? 0) > 0)
-        {
-            WriteChannelControls(material.ChannelControls!);
-        }
+        // Reference Order from OldCode (db.cs):
+        // 1. TexMap (Bit 0-3)
+        // 2. TexMatrix (Bit 4-7)
+        // 3. TexCoordGen (Bit 8-11)
+        // 4. Material Color (Bit 27)
+        // 5. Channel Control (Bit 25)
+        // 6. Swap Table (Bit 12)
+        // 7. Indirect Matrix (Bit 13-14)
+        // 8. Indirect Stage (Bit 15-17)
+        // 9. TEV Stage (Bit 18-22)
+        // 10. Alpha Compare (Bit 23)
+        // 11. Blend Mode (Bit 24)
 
-        if (material.MaterialColorRegister is not null)
-        {
-            WriteColor(material.MaterialColorRegister);
-        }
+        if ((flags & 0x0000000F) != 0) WriteTexMapBlock(material, textures);
+        if ((flags & 0x000000F0) != 0) WriteTexMatrixBlock(material);
+        if ((flags & 0x00000F00) != 0) WriteTexCoordGenBlock(material);
 
-        if ((material.SwapTables?.Length ?? 0) > 0)
+        if ((flags & 0x08000000) != 0) WriteColor(material.MaterialColorRegister);
+        if ((flags & 0x02000000) != 0) WriteChannelControls(material.ChannelControls!);
+        if ((flags & 0x00001000) != 0) WriteSwapTables(material.SwapTables!);
+        
+        int indirectMatrixCount = (int)((flags >> 13) & 0x03);
+        if (indirectMatrixCount > 0)
         {
-            WriteSwapTables(material.SwapTables!);
-        }
-
-        TexMatrix[] indirectMatrices = material.IndirectMatrices ?? Array.Empty<TexMatrix>();
-        if (indirectMatrices.Length > 0)
-        {
-            for (int i = 0; i < indirectMatrices.Length; i++)
+            TexMatrix[] indirectMatrices = material.IndirectMatrices ?? Array.Empty<TexMatrix>();
+            for (int i = 0; i < indirectMatrixCount; i++)
             {
-                WriteTexMatrix(indirectMatrices[i]);
+                WriteTexMatrix(i < indirectMatrices.Length ? indirectMatrices[i] : new TexMatrix());
             }
         }
 
-        WriteIndirectStageBlock(material);
-        WriteTevStageBlock(material);
-        WriteRevoTailBlocks(material.AlphaCompare, material.BlendMode);
+        int indirectStageCount = (int)((flags >> 15) & 0x07);
+        if (indirectStageCount > 0)
+        {
+            WriteIndirectStageBlock(material, indirectStageCount);
+        }
+
+        int tevStageCount = (int)((flags >> 18) & 0x1F);
+        if (tevStageCount > 0)
+        {
+            WriteTevStageBlock(material, tevStageCount);
+        }
+
+        if ((flags & 0x00800000) != 0) WriteAlphaCompare(material.AlphaCompare!);
+        if ((flags & 0x01000000) != 0) WriteBlendMode(material.BlendMode!);
     }
 
-    private void WriteIndirectStageBlock(BrlytMaterialEntry material)
+    private void WriteLegacyMaterialPayload(BrlytMaterialEntry material, IReadOnlyList<TextureFile> textures)
     {
-        int declaredCount = GetEffectiveIndirectStageCount(material);
+        // Legacy Payload: Map, Matrix, CoordGen, TevStage, BlendRatio, Indirect
+        WriteTexMapBlock(material, textures);
+        WriteTexMatrixBlock(material);
+        WriteTexCoordGenBlock(material);
+
+        int tevStageCount = GetEffectiveTevStageCount(material);
+        MaterialTextureStage[] legacyStages = material.TextureStages ?? Array.Empty<MaterialTextureStage>();
+        for (int i = 0; i < tevStageCount; i++)
+        {
+            WriteLegacyTextureStage(i < legacyStages.Length ? legacyStages[i] : new MaterialTextureStage());
+        }
+
+        int blendRatioCount = Math.Min(material.TexBlendRatios?.Length ?? 0, 3);
+        TexBlendRatio[] blendRatios = material.TexBlendRatios ?? Array.Empty<TexBlendRatio>();
+        for (int i = 0; i < blendRatioCount; i++)
+        {
+            WriteTexBlendRatio(blendRatios[i]);
+        }
+
+        int indirectCount = GetEffectiveIndirectStageCount(material);
+        MaterialWarp[] indirectWarps = material.IndirectWarps ?? Array.Empty<MaterialWarp>();
+        for (int i = 0; i < indirectCount; i++)
+        {
+            WriteMaterialWarp(i < indirectWarps.Length ? indirectWarps[i] : new MaterialWarp());
+        }
+    }
+
+    private void WriteIndirectStageBlock(BrlytMaterialEntry material, int declaredCount)
+    {
         Material_RevoIndirectStage[] stages = material.IndirectStages ?? Array.Empty<Material_RevoIndirectStage>();
 
         for (int i = 0; i < declaredCount; i++)
@@ -275,9 +323,8 @@ public sealed class BrlytBinaryWriter
         }
     }
 
-    private void WriteTevStageBlock(BrlytMaterialEntry material)
+    private void WriteTevStageBlock(BrlytMaterialEntry material, int declaredCount)
     {
-        int declaredCount = GetEffectiveTevStageCount(material);
         Material_RevoTevStage[] stages = material.TevStages ?? Array.Empty<Material_RevoTevStage>();
 
         for (int i = 0; i < declaredCount; i++)
@@ -286,74 +333,40 @@ public sealed class BrlytBinaryWriter
         }
     }
 
-
-
-
-
-
     private void WriteRevoTailBlocks(Material_RevoAlphaCompare? alphaCompare, Material_RevoBlendMode? blendMode)
     {
-        if (alphaCompare is not null)
+        if (alphaCompare != null)
         {
             WriteAlphaCompare(alphaCompare);
         }
 
-        if (blendMode is not null)
+        if (blendMode != null)
         {
             WriteBlendMode(blendMode);
         }
     }
 
-    private void WriteOptionalAlphaCompare(Material_RevoAlphaCompare? alphaCompare)
-    {
-        // Keep the payload width deterministic in the Revo path: 4-byte record when present,
-        // otherwise 4 zero bytes only if another Revo-only tail block will follow later.
-        if (alphaCompare is null)
-        {
-            return;
-        }
-
-        WriteAlphaCompare(alphaCompare);
-    }
-
-    private void WriteOptionalBlendMode(Material_RevoBlendMode? blendMode)
-    {
-        if (blendMode is null)
-        {
-            return;
-        }
-
-        WriteBlendMode(blendMode);
-    }
-
     private static int GetEffectiveTevStageCount(BrlytMaterialEntry material)
-        => Math.Min(16, material.HasRevoMaterial
-            ? (material.TevStageCount > 0 ? material.TevStageCount : (byte)(material.TevStages?.Length ?? 0))
-            : (material.TextureStages?.Length ?? 0));
+        => material.TevStageCount > 0 ? material.TevStageCount : (material.TevStages?.Length ?? 0);
 
     private static int GetEffectiveIndirectStageCount(BrlytMaterialEntry material)
-        => Math.Min(4, material.HasRevoMaterial
-            ? (material.IndirectStageCount > 0 ? material.IndirectStageCount : (byte)(material.IndirectStages?.Length ?? 0))
-            : (material.IndirectWarps?.Length ?? 0));
+        => material.IndirectStageCount > 0 ? material.IndirectStageCount : (material.IndirectStages?.Length ?? 0);
 
     private uint BuildMaterialFlags(BrlytMaterialEntry material)
     {
-        int texMapCount = Math.Min(material.TexMaps?.Length ?? 0, 15);
-        int texMatrixCount = Math.Min(material.TexMatrices?.Length ?? 0, 15);
-        int texCoordGenCount = Math.Min(material.TexCoordGens?.Length ?? 0, 15);
-
         if (!material.HasRevoMaterial)
         {
             uint legacyFlags = 0;
-            legacyFlags |= (uint)(texMapCount & 0x0F);
-            legacyFlags |= (uint)((texMatrixCount & 0x0F) << 4);
-            legacyFlags |= (uint)((texCoordGenCount & 0x0F) << 8);
+            legacyFlags |= (uint)((material.TexMaps?.Length ?? 0) & 0x0F);
+            legacyFlags |= (uint)(((material.TexMatrices?.Length ?? 0) & 0x0F) << 4);
+            legacyFlags |= (uint)(((material.TexCoordGens?.Length ?? 0) & 0x0F) << 8);
             legacyFlags |= (uint)((GetEffectiveTevStageCount(material) & 0x07) << 12);
-            // Keep legacy materials from asserting revo-only payload bits.
-            // OldCode with detailSetting=false does not advertise swap/indirect revo blocks.
             return legacyFlags;
         }
 
+        int texMapCount = Math.Min(material.TexMaps?.Length ?? 0, 15);
+        int texMatrixCount = Math.Min(material.TexMatrices?.Length ?? 0, 15);
+        int texCoordGenCount = Math.Min(material.TexCoordGens?.Length ?? 0, 15);
         int indirectMatrixCount = Math.Min(material.IndirectMatrices?.Length ?? 0, 3);
         int indirectStageCount = GetEffectiveIndirectStageCount(material);
         int effectiveTevStages = Math.Min(GetEffectiveTevStageCount(material), 31);
@@ -371,7 +384,7 @@ public sealed class BrlytBinaryWriter
         //   24    blendMode present
         //   25    channelControl present
         //   27    matColReg present
-        uint revoFlags = 0;
+        uint revoFlags = 0x80000000; // Set Revo Flag
         revoFlags |= (uint)(texMapCount & 0x0F);
         revoFlags |= (uint)((texMatrixCount & 0x0F) << 4);
         revoFlags |= (uint)((texCoordGenCount & 0x0F) << 8);
@@ -509,7 +522,7 @@ public sealed class BrlytBinaryWriter
         _writer.WriteByte(pane.alpha);
         _writer.WriteByte(0);
         _writer.WriteFixedAscii(pane.name ?? string.Empty, 16, zeroTerminate: true);
-        WritePaneReservedBytes(pane.binaryReservedBytes);
+        WritePaneReservedUserData(pane);
         _writer.WriteSingle(pane.translate?.x ?? 0f);
         _writer.WriteSingle(pane.translate?.y ?? 0f);
         _writer.WriteSingle(pane.translate?.z ?? 0f);
@@ -1083,17 +1096,18 @@ public sealed class BrlytBinaryWriter
 
     private void WriteTevStage(Material_RevoTevStage stage)
     {
-        // The original bv.a(Material_RevoTevStage) packs a TEV stage into a compact fixed 16-byte record
-        // instead of writing the XML sub-objects verbatim. We mirror that compact layout here.
         Span<byte> buffer = stackalloc byte[16];
 
-        byte texMap = stage.texMap < 0 ? (byte)0xFF : unchecked((byte)stage.texMap);
+        // texMap is actually 9-bit in the binary (8 bits in buffer[2], high bit in buffer[3] bit 0)
+        short texMapVal = stage.texMap;
+        if (texMapVal < 0) texMapVal = 0x1FF; // 9-bit -1
+
         byte texCoord = stage.texCoordGen < 0 ? (byte)0xFF : unchecked((byte)stage.texCoordGen);
 
         buffer[0] = texCoord;
         buffer[1] = MapTevChannel(stage.colorChannel);
-        buffer[2] = texMap;
-        buffer[3] = (byte)(((stage.texColSwap & 0x03) << 3) | ((stage.rasColSwap & 0x03) << 1) | (texMap >> 8));
+        buffer[2] = (byte)(texMapVal & 0xFF);
+        buffer[3] = (byte)(((stage.texColSwap & 0x03) << 3) | ((stage.rasColSwap & 0x03) << 1) | ((texMapVal >> 8) & 0x01));
 
         WriteTevStageColor(stage.color, buffer);
         WriteTevStageAlpha(stage.alpha, buffer);
@@ -1303,10 +1317,18 @@ public sealed class BrlytBinaryWriter
         };
 
     private static byte MapTevKonstColor(TevKColorSel konst)
-        => (byte)konst < 20 ? (byte)((byte)konst + 12) : (byte)((byte)konst - 20);
+    {
+        int val = (int)konst;
+        if (val < 20) return (byte)(val + 12);
+        return (byte)(val - 20);
+    }
 
     private static byte MapTevKonstAlpha(TevKAlphaSel konst)
-        => (byte)konst < 16 ? (byte)((byte)konst + 16) : (byte)((byte)konst - 16);
+    {
+        int val = (int)konst;
+        if (val < 16) return (byte)(val + 16);
+        return (byte)(val - 16);
+    }
 
     private static byte MapIndTexFormat(IndTexFormat format) => (byte)format;
     private static byte MapIndTexBias(IndTexBiasSel bias)
@@ -1478,6 +1500,64 @@ public sealed class BrlytBinaryWriter
         }
 
         return int.TryParse(materialName[prefix.Length..], NumberStyles.None, CultureInfo.InvariantCulture, out index);
+    }
+
+    private static bool ShouldWriteAlphaCompare(Material_RevoAlphaCompare? alphaCompare)
+    {
+        if (alphaCompare == null) return false;
+
+        // Strip only if it matches EXACT default: Always, 0, And, Always, 0
+        return alphaCompare.comp0 != Compare.Always
+            || alphaCompare.ref0 != 0
+            || alphaCompare.op != AlphaOp.And
+            || alphaCompare.comp1 != Compare.Always
+            || alphaCompare.ref1 != 0;
+    }
+
+    private static bool ShouldWriteBlendMode(Material_RevoBlendMode? blendMode)
+    {
+        if (blendMode == null) return false;
+
+        // Strip only if it matches EXACT default: Blend, SrcAlpha, InvSrcAlpha, LogicOp.Clear
+        return blendMode.type != LayoutConverter.Core.Schema.Rlyt.BlendMode.Blend
+            || blendMode.srcFactor != BlendFactorSrc.SrcAlpha
+            || blendMode.dstFactor != BlendFactorDst.InvSrcAlpha
+            || blendMode.op != LogicOp.Clear;
+    }
+
+    private void WritePaneReservedUserData(Pane pane)
+    {
+        // If the XML explicitly provides binaryReservedBytes (as a hex string), use it.
+        if (!string.IsNullOrWhiteSpace(pane.binaryReservedBytes))
+        {
+            byte[] bytes = Convert.FromHexString(pane.binaryReservedBytes);
+            if (bytes.Length != 8)
+            {
+                throw new InvalidOperationException($"Pane binaryReservedBytes must decode to exactly 8 bytes, but was {bytes.Length}.");
+            }
+            _writer.Write(bytes);
+            return;
+        }
+
+        // Otherwise, check for the legacy "__BasicUserDataString" in the userData collection.
+        // This was how the original editor stored the 8-byte reserved field.
+        string reservedString = GetReservedUserDataString(pane.userData);
+        _writer.WriteFixedAscii(reservedString, 8, zeroTerminate: false);
+    }
+
+    private static string GetReservedUserDataString(object[]? userData)
+    {
+        if (userData == null) return string.Empty;
+
+        foreach (var item in userData)
+        {
+            if (item is UserDataString { name: "__BasicUserDataString" } uds)
+            {
+                return uds.Value ?? string.Empty;
+            }
+        }
+
+        return string.Empty;
     }
 
     private void WriteRgb(byte r, byte g, byte b)

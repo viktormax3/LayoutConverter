@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using LayoutConverter.Core.Schema.Rlyt;
 
 namespace LayoutConverter.Core.Brlyt;
@@ -114,46 +114,37 @@ public sealed class BrlytMaterialEntry
 
         if (supportsTexturePayload)
         {
-            indirectStages = materialRevo.indirectStageNum > 0
-                ? Resize(materialRevo.indirectStage, Math.Min(materialRevo.indirectStageNum, (byte)4))
-                : Array.Empty<Material_RevoIndirectStage>();
-
-            indirectMatrices = indirectStages.Length > 0
-                ? CloneArray(materialRevo.indirectMatrix)
-                : Array.Empty<TexMatrix>();
-
-
-            tevStages = materialRevo.tevStageNum > 0
-                ? Resize(materialRevo.tevStage, Math.Min(materialRevo.tevStageNum, (byte)16))
-                : Array.Empty<Material_RevoTevStage>();
+            indirectStages = Resize(materialRevo.indirectStage, 4);
+            indirectMatrices = Resize(materialRevo.indirectMatrix, 3);
+            tevStages = Resize(materialRevo.tevStage, 16);
         }
 
         Material_RevoSwapTable[]? swapTables = null;
-        if (supportsTexturePayload && tevStages.Length > 0)
+        if (supportsTexturePayload)
         {
-            swapTables = NormalizeSwapTables(materialRevo.swapTable);
+            swapTables = Resize(materialRevo.swapTable, 4);
         }
 
         return new BrlytMaterialEntry
         {
             Name = materialRevo.name ?? string.Empty,
             HasRevoMaterial = true,
-            ChannelControls = supportsTexturePayload ? (materialRevo.channelControl is null ? null : Resize(materialRevo.channelControl, 1)) : null,
-            MaterialColorRegister = supportsTexturePayload ? materialRevo.matColReg : null,
+            ChannelControls = supportsTexturePayload ? NormalizeChannelControls(materialRevo.channelControl) : null,
             TevColorRegisters = Resize(materialRevo.tevColReg, 3),
-            TevConstantRegisters = materialRevo.tevConstReg is null ? null : Resize(materialRevo.tevConstReg, 4),
+            TevConstantRegisters = NormalizeConstantRegisters(materialRevo.tevConstReg),
             TexMaps = supportsTexturePayload ? CloneArray(materialRevo.texMap) : Array.Empty<TexMap>(),
             TexMatrices = supportsTexturePayload ? CloneArray(materialRevo.texMatrix) : Array.Empty<TexMatrix>(),
             TexCoordGens = supportsTexturePayload ? CloneArray(materialRevo.texCoordGen) : Array.Empty<TexCoordGen>(),
-            SwapTables = swapTables,
+            SwapTables = supportsTexturePayload ? Resize(materialRevo.swapTable, 4) : null,
             IndirectMatrices = indirectMatrices,
             IndirectStages = indirectStages,
             TevStages = tevStages,
-            AlphaCompare = supportsTexturePayload ? materialRevo.alphaCompare : null,
-            BlendMode = supportsTexturePayload ? materialRevo.blendMode : null,
+            AlphaCompare = supportsTexturePayload ? NormalizeAlphaCompare(materialRevo.alphaCompare) : null,
+            BlendMode = supportsTexturePayload ? NormalizeBlendMode(materialRevo.blendMode) : null,
             TevStageCount = (byte)tevStages.Length,
             IndirectStageCount = (byte)indirectStages.Length,
             DisplayFace = materialRevo.displayFace,
+            MaterialColorRegister = materialRevo.matColReg,
         };
     }
 
@@ -201,9 +192,9 @@ public sealed class BrlytMaterialEntry
         {
             Material_RevoSwapTable table = resized[i];
             if (table.r != TevColorChannel.Red
-                || table.g != TevColorChannel.Red
-                || table.b != TevColorChannel.Red
-                || table.a != TevColorChannel.Red)
+                || table.g != TevColorChannel.Green
+                || table.b != TevColorChannel.Blue
+                || table.a != TevColorChannel.Alpha)
             {
                 allDefault = false;
                 break;
@@ -212,15 +203,34 @@ public sealed class BrlytMaterialEntry
 
         return allDefault ? null : resized;
     }
+
+    private static Material_RevoAlphaCompare? NormalizeAlphaCompare(Material_RevoAlphaCompare? source)
+    {
+        return source;
+    }
+
+    private static Material_RevoBlendMode? NormalizeBlendMode(Material_RevoBlendMode? source)
+    {
+        return source;
+    }
+
+    private static Material_RevoChannelControl[]? NormalizeChannelControls(Material_RevoChannelControl[]? source)
+    {
+        return source is null ? null : Resize(source, 2);
+    }
+
+    private static Color4[]? NormalizeConstantRegisters(Color4[]? source)
+    {
+        return source is null ? null : Resize(source, 4);
+    }
+
+    private static Color4? NormalizeMatColReg(Color4? source)
+    {
+        return source;
+    }
     private static bool HasEffectiveRevoPayload(Material_Revo? materialRevo)
     {
-        if (materialRevo is null)
-        {
-            return false;
-        }
-        // Legacy material data uses the compact route when detailSetting is present but
-        // the revo TEV payload is effectively absent.
-        return materialRevo.tevStageNum > 0 && (materialRevo.tevStage?.Length ?? 0) > 0;
+        return materialRevo is not null;
     }
 
     private static TexMatrix[] CreateIdentityIndirectMatrices()

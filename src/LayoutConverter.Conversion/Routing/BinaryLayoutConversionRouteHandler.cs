@@ -21,6 +21,7 @@ public sealed class BinaryLayoutConversionRouteHandler : IConversionRouteHandler
         try
         {
             var document = BrlytBinaryReader.ReadDocument(layoutRequest.SourcePath);
+            BrlytXmlSanitizer.Sanitize(document);
             ExportCompanionTextures(layoutRequest.SourcePath, layoutRequest.DestinationPath, document, log);
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(layoutRequest.DestinationPath))!);
             using var output = File.Create(layoutRequest.DestinationPath);
