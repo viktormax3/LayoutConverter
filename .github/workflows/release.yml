@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Publish CLI
+      run: dotnet publish src/LayoutConverter.Cli/LayoutConverter.Cli.csproj -c Release -r win-x64 --self-contained false -o publish/cli
+
+    - name: Publish GUI
+      run: dotnet publish src/LayoutConverter.Gui/LayoutConverter.Gui.csproj -c Release -r win-x64 --self-contained false -o publish/gui
+
+    - name: Assemble Release
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path Release -Force
+        Copy-Item publish/cli/* Release -Force
+        Copy-Item publish/gui/* Release -Force
+        Copy-Item README.md Release -Force
+        Get-ChildItem Release -Filter *.pdb | Remove-Item -Force
+
+    - name: Zip Release
+      shell: pwsh
+      run: Compress-Archive -Path Release/* -DestinationPath NW4R-LayoutTools-${{ github.ref_name }}.zip
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: NW4R-LayoutTools-${{ github.ref_name }}.zip
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
