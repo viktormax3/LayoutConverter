@@ -33,22 +33,33 @@ Write-Host "Publishing GUI (win-x64)..."
 & dotnet publish (Join-Path $repoRoot "src\LayoutConverter.Gui\LayoutConverter.Gui.csproj") `
     -c $Configuration -r win-x64 --self-contained false -o (Join-Path $publishDir "gui") | Out-Null
 
-# 3. Assemble Release Folder
-Write-Host "Assembling release folder..."
-New-Item -ItemType Directory -Path $releaseDir -Force | Out-Null
+# 3. Assemble Release Folders
+Write-Host "Assembling release folders..."
+New-Item -ItemType Directory -Path (Join-Path $repoRoot "Release-Cli") -Force | Out-Null
+New-Item -ItemType Directory -Path (Join-Path $repoRoot "Release-Gui") -Force | Out-Null
 
-# Copy binaries (GUI and CLI share dependencies, so they can coexist in the same folder)
-Copy-Item (Join-Path $publishDir "cli\*") $releaseDir -Force
-Copy-Item (Join-Path $publishDir "gui\*") $releaseDir -Force
-Copy-Item (Join-Path $repoRoot "README.md") $releaseDir -Force
+# Copy files
+Copy-Item (Join-Path $publishDir "cli\*") (Join-Path $repoRoot "Release-Cli") -Force
+Copy-Item (Join-Path $repoRoot "README.md") (Join-Path $repoRoot "Release-Cli") -Force
 
-# Remove debug symbols to keep it clean
-Get-ChildItem $releaseDir -Filter *.pdb | Remove-Item -Force
+Copy-Item (Join-Path $publishDir "gui\*") (Join-Path $repoRoot "Release-Gui") -Force
+Copy-Item (Join-Path $repoRoot "README.md") (Join-Path $repoRoot "Release-Gui") -Force
 
-# 4. Create ZIP Archive
-Write-Host "Creating ZIP archive: $zipName"
-Compress-Archive -Path (Join-Path $releaseDir "*") -DestinationPath $zipPath -Force
+# Remove debug symbols
+Get-ChildItem (Join-Path $repoRoot "Release-Cli") -Filter *.pdb | Remove-Item -Force
+Get-ChildItem (Join-Path $repoRoot "Release-Gui") -Filter *.pdb | Remove-Item -Force
+
+# 4. Create ZIP Archives
+$zipCli = "NW4R-LayoutTools-CLI-v$Version.zip"
+$zipGui = "NW4R-LayoutTools-GUI-v$Version.zip"
+
+Write-Host "Creating ZIP archives..."
+Compress-Archive -Path (Join-Path $repoRoot "Release-Cli\*") -DestinationPath (Join-Path $repoRoot $zipCli) -Force
+Compress-Archive -Path (Join-Path $repoRoot "Release-Gui\*") -DestinationPath (Join-Path $repoRoot $zipGui) -Force
 
 Write-Host "`nSuccessfully packaged! " -NoNewline -ForegroundColor Green
-Write-Host "Location: $zipPath" -ForegroundColor White
-Write-Host "You can now upload this ZIP to your GitHub Release page.`n"
+Write-Host "Location: $repoRoot" -ForegroundColor White
+Write-Host "Files created:"
+Write-Host " - $zipCli"
+Write-Host " - $zipGui"
+Write-Host "You can now upload these ZIPs to your GitHub Release page.`n"

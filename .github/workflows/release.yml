@@ -27,23 +27,33 @@ jobs:
     - name: Publish GUI
       run: dotnet publish src/LayoutConverter.Gui/LayoutConverter.Gui.csproj -c Release -r win-x64 --self-contained false -o publish/gui
 
-    - name: Assemble Release
+    - name: Assemble Release Files
       shell: pwsh
       run: |
-        New-Item -ItemType Directory -Path Release -Force
-        Copy-Item publish/cli/* Release -Force
-        Copy-Item publish/gui/* Release -Force
-        Copy-Item README.md Release -Force
-        Get-ChildItem Release -Filter *.pdb | Remove-Item -Force
+        # CLI Assembly
+        New-Item -ItemType Directory -Path Release-Cli -Force
+        Copy-Item publish/cli/* Release-Cli -Force
+        Copy-Item README.md Release-Cli -Force
+        Get-ChildItem Release-Cli -Filter *.pdb | Remove-Item -Force
 
-    - name: Zip Release
+        # GUI Assembly
+        New-Item -ItemType Directory -Path Release-Gui -Force
+        Copy-Item publish/gui/* Release-Gui -Force
+        Copy-Item README.md Release-Gui -Force
+        Get-ChildItem Release-Gui -Filter *.pdb | Remove-Item -Force
+
+    - name: Zip Release Packages
       shell: pwsh
-      run: Compress-Archive -Path Release/* -DestinationPath NW4R-LayoutTools-${{ github.ref_name }}.zip
+      run: |
+        Compress-Archive -Path Release-Cli/* -DestinationPath NW4R-LayoutTools-CLI-${{ github.ref_name }}.zip
+        Compress-Archive -Path Release-Gui/* -DestinationPath NW4R-LayoutTools-GUI-${{ github.ref_name }}.zip
 
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        files: NW4R-LayoutTools-${{ github.ref_name }}.zip
+        files: |
+          NW4R-LayoutTools-CLI-${{ github.ref_name }}.zip
+          NW4R-LayoutTools-GUI-${{ github.ref_name }}.zip
         generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
