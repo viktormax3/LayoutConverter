@@ -3,15 +3,18 @@ OldCode/
 layout/
 build.bat
 Test/sample/**/
-# Build outputs
+# Build and Release outputs
 bin/
 obj/
 src/**/bin/
 src/**/obj/
+publish/
+Release/
 
-# Local validation outputs
+# Local validation outputs and scratch files
 scratch*/
 scratchs/
+temp_writer.cs
 
 # Logs and diagnostics
 *.log
