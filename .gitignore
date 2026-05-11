@@ -2,6 +2,7 @@
 OldCode/
 layout/
 build.bat
+samples/
 Test/sample/**/
 # Build and Release outputs
 bin/

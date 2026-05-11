@@ -5,6 +5,9 @@ namespace LayoutConverter.Core.Brlan;
 public static class BrlanMergeHelper
 {
     public static Document MergeSequential(string layoutName, IReadOnlyList<string> splitBrlanPaths)
+        => Merge(layoutName, splitBrlanPaths, sequentialFrames: true);
+
+    public static Document Merge(string layoutName, IReadOnlyList<string> splitBrlanPaths, bool sequentialFrames)
     {
         var masterDoc = new Document
         {
@@ -20,9 +23,11 @@ public static class BrlanMergeHelper
         var mergedAnimations = new Dictionary<AnimationType, MergedAnimation>();
 
         int currentOffset = 0;
-        int maxPieceDuration = 0;
+        int masterEndFrame = 0;
 
-        var sortedPaths = SortSplitPaths(layoutName, splitBrlanPaths).ToArray();
+        var sortedPaths = sequentialFrames
+            ? SortSplitPaths(layoutName, splitBrlanPaths).ToArray()
+            : splitBrlanPaths.ToArray();
         for (int pathIndex = 0; pathIndex < sortedPaths.Length; pathIndex++)
         {
             var path = sortedPaths[pathIndex];
@@ -34,17 +39,28 @@ public static class BrlanMergeHelper
                 continue;
             }
 
-            int pieceDuration = subRlans.Max(static rlan => rlan.endFrame - rlan.startFrame);
-            int? trimAfterFrame = pathIndex < sortedPaths.Length - 1 ? pieceDuration : null;
-            maxPieceDuration = Math.Max(maxPieceDuration, pieceDuration);
+            int pieceStartFrame = sequentialFrames ? 0 : subRlans.Min(static rlan => rlan.startFrame);
+            int pieceEndFrame = subRlans.Max(static rlan => rlan.endFrame);
+            int pieceDuration = pieceEndFrame - pieceStartFrame;
+            int frameOffset = sequentialFrames ? currentOffset : 0;
+            int? trimAfterFrame = sequentialFrames && pathIndex < sortedPaths.Length - 1 ? pieceDuration : null;
 
             masterTags.Add(new AnimTag
             {
                 name = tagName,
                 fileName = tagName,
-                startFrame = currentOffset,
-                endFrame = currentOffset + pieceDuration,
-                animLoop = AnimLoopType.OneTime,
+                startFrame = frameOffset + pieceStartFrame,
+                endFrame = frameOffset + pieceEndFrame,
+                animLoop = subRlans.Any(static rlan => rlan.animLoop == AnimLoopType.Loop)
+                    ? AnimLoopType.Loop
+                    : AnimLoopType.OneTime,
+                outputPaneSRT = HasAnimationType(subRlans, AnimationType.PainSRT),
+                outputVisibility = HasAnimationType(subRlans, AnimationType.Visibility),
+                outputVertexColor = HasAnimationType(subRlans, AnimationType.VertexColor),
+                outputMaterialColor = HasAnimationType(subRlans, AnimationType.MaterialColor),
+                outputTextureSRT = HasAnimationType(subRlans, AnimationType.TextureSRT),
+                outputTexturePattern = HasAnimationType(subRlans, AnimationType.TexturePattern),
+                outputIndTextureSRT = HasAnimationType(subRlans, AnimationType.IndTextureSRT),
             });
 
             foreach (var subRlan in subRlans)
@@ -68,7 +84,7 @@ public static class BrlanMergeHelper
                     var occurrenceByTarget = new Dictionary<(AnimTargetType Target, byte Id), int>();
                     foreach (var target in content.Items ?? Array.Empty<AnimTarget>())
                     {
-                        var shiftedTarget = ShiftTargetKeys(target, currentOffset, trimAfterFrame);
+                        var shiftedTarget = ShiftTargetKeys(target, frameOffset, trimAfterFrame);
                         var targetKey = (shiftedTarget.target, shiftedTarget.id);
                         occurrenceByTarget.TryGetValue(targetKey, out int occurrence);
                         occurrenceByTarget[targetKey] = occurrence + 1;
@@ -82,7 +98,8 @@ public static class BrlanMergeHelper
                         {
                             existingTarget.key = MergeKeyframes(
                                 existingTarget.key ?? Array.Empty<Hermite>(),
-                                shiftedTarget.key ?? Array.Empty<Hermite>());
+                                shiftedTarget.key ?? Array.Empty<Hermite>(),
+                                sequentialFrames);
                         }
                         else
                         {
@@ -94,7 +111,11 @@ public static class BrlanMergeHelper
                 }
             }
 
-            currentOffset += pieceDuration;
+            masterEndFrame = Math.Max(masterEndFrame, frameOffset + pieceEndFrame);
+            if (sequentialFrames)
+            {
+                currentOffset += pieceDuration;
+            }
         }
 
         masterDoc.body.animTag = masterTags.ToArray();
@@ -104,9 +125,9 @@ public static class BrlanMergeHelper
             {
                 animType = animation.Type,
                 startFrame = 0,
-                endFrame = maxPieceDuration,
+                endFrame = masterEndFrame,
                 convertStartFrame = 0,
-                convertEndFrame = maxPieceDuration,
+                convertEndFrame = masterEndFrame,
                 animContent = animation.Contents.Values.ToArray(),
             })
             .ToArray();
@@ -168,6 +189,9 @@ public static class BrlanMergeHelper
             _ => 100,
         };
 
+    private static bool HasAnimationType(IEnumerable<RLAN> rlans, AnimationType type)
+        => rlans.Any(rlan => rlan.animType == type);
+
     private static AnimTarget ShiftTargetKeys(AnimTarget target, int offset, int? trimAfterFrame)
     {
         var sourceKeys = target.key ?? Array.Empty<Hermite>();
@@ -195,11 +219,33 @@ public static class BrlanMergeHelper
         return newTarget;
     }
 
-    private static Hermite[] MergeKeyframes(Hermite[] existing, Hermite[] incoming)
+    private static Hermite[] MergeKeyframes(Hermite[] existing, Hermite[] incoming, bool dropDuplicateBoundaryKeys)
         => existing
-            .Concat(incoming)
+            .Concat(dropDuplicateBoundaryKeys ? DropDuplicateBoundaryKey(existing, incoming) : incoming)
             .OrderBy(static key => key.frame)
             .ToArray();
+
+    private static IEnumerable<Hermite> DropDuplicateBoundaryKey(Hermite[] existing, Hermite[] incoming)
+    {
+        if (existing.Length == 0 || incoming.Length == 0)
+        {
+            return incoming;
+        }
+
+        var lastExisting = existing[^1];
+        var firstIncoming = incoming[0];
+        if (SameBinaryKey(lastExisting, firstIncoming))
+        {
+            return incoming.Skip(1);
+        }
+
+        return incoming;
+    }
+
+    private static bool SameBinaryKey(Hermite left, Hermite right)
+        => left.frame == right.frame
+            && left.value == right.value
+            && left.slope == right.slope;
 
     private sealed class MergedAnimation
     {

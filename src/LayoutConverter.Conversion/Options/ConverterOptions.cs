@@ -21,6 +21,7 @@ public sealed class ConverterOptions
         bool update = false;
         bool splitByTag = false;
         bool mergeAnimations = false;
+        bool mergeSequentialFrames = false;
         bool includeTagInfo = true;
         bool omitSameKey = false;
         bool omitSameKeyAll = false;
@@ -56,6 +57,10 @@ public sealed class ConverterOptions
                     break;
                 case "merge-anim":
                     mergeAnimations = true;
+                    break;
+                case "merge-sequential":
+                    mergeAnimations = true;
+                    mergeSequentialFrames = true;
                     break;
                 case "i":
                 case "no-convert-cvtrchar":
@@ -143,6 +148,7 @@ public sealed class ConverterOptions
             Animation = new AnimationRouteOptions
             {
                 MergeAnimations = mergeAnimations,
+                MergeSequentialFrames = mergeSequentialFrames,
                 SplitOutputsByTag = splitByTag,
                 IncludeTagInfo = includeTagInfo,
                 OmitSameKeyAfterFirstTag = omitSameKey,
@@ -182,6 +188,7 @@ public sealed class LayoutRouteOptions
 public sealed class AnimationRouteOptions
 {
     public bool MergeAnimations { get; init; }
+    public bool MergeSequentialFrames { get; init; }
     public bool SplitOutputsByTag { get; init; }
     public bool IncludeTagInfo { get; init; } = true;
     public bool OmitSameKeyAfterFirstTag { get; init; }
@@ -193,6 +200,7 @@ public sealed class AnimationRouteOptions
     public bool HasAnyExplicitSetting()
     {
         return MergeAnimations
+            || MergeSequentialFrames
             || SplitOutputsByTag
             || !IncludeTagInfo
             || OmitSameKeyAfterFirstTag

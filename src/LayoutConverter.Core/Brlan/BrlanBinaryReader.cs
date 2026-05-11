@@ -209,6 +209,7 @@ public static class BrlanBinaryReader
         }
 
         animTarget.key = ReadKeys(bytes, keyOffset, keyCount, type, startFrame);
+        AnnotateSlopeTypes(animTarget.key, type);
         return animTarget;
     }
 
@@ -243,6 +244,170 @@ public static class BrlanBinaryReader
         }
 
         return keys;
+    }
+
+    private static void AnnotateSlopeTypes(Hermite[] keys, AnimationType type)
+    {
+        if (keys.Length == 0)
+        {
+            return;
+        }
+
+        if (type == AnimationType.Visibility || type == AnimationType.TexturePattern)
+        {
+            SetSlopeType(keys, SlopeType.Step);
+            return;
+        }
+
+        if (IsStepLike(keys))
+        {
+            SetSlopeType(keys, SlopeType.Step);
+            return;
+        }
+
+        if (HasRepeatedFrame(keys))
+        {
+            SetSlopeType(keys, SlopeType.Linear);
+            return;
+        }
+
+        if (IsSmoothLike(keys))
+        {
+            SetSlopeType(keys, SlopeType.Smooth);
+            return;
+        }
+
+        if (AllSlopesAreZero(keys))
+        {
+            SetSlopeType(keys, SlopeType.Flat);
+            return;
+        }
+
+        SetSlopeType(keys, SlopeType.Linear);
+    }
+
+    private static bool IsStepLike(IReadOnlyList<Hermite> keys)
+    {
+        if (!AllSlopesAreZero(keys))
+        {
+            return false;
+        }
+
+        for (int i = 1; i < keys.Count; i++)
+        {
+            if (SameFrame(keys[i - 1], keys[i]) && !SameValue(keys[i - 1], keys[i]))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool HasRepeatedFrame(IReadOnlyList<Hermite> keys)
+    {
+        for (int i = 1; i < keys.Count; i++)
+        {
+            if (SameFrame(keys[i - 1], keys[i]))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool IsSmoothLike(IReadOnlyList<Hermite> keys)
+    {
+        if (keys.Count == 1)
+        {
+            return true;
+        }
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            var previous = FindPreviousDifferentFrame(keys, i);
+            var next = FindNextDifferentFrame(keys, i);
+            if (previous is null && next is null)
+            {
+                continue;
+            }
+
+            var left = previous ?? keys[i];
+            var right = next ?? keys[i];
+            float expected = CalculateSlope(left, right);
+            if (!NearlyEqual(keys[i].slope, expected))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static Hermite? FindPreviousDifferentFrame(IReadOnlyList<Hermite> keys, int index)
+    {
+        for (int i = index - 1; i >= 0; i--)
+        {
+            if (!SameFrame(keys[i], keys[index]))
+            {
+                return keys[i];
+            }
+        }
+
+        return null;
+    }
+
+    private static Hermite? FindNextDifferentFrame(IReadOnlyList<Hermite> keys, int index)
+    {
+        for (int i = index + 1; i < keys.Count; i++)
+        {
+            if (!SameFrame(keys[i], keys[index]))
+            {
+                return keys[i];
+            }
+        }
+
+        return null;
+    }
+
+    private static float CalculateSlope(Hermite left, Hermite right)
+    {
+        float frameDelta = right.frame - left.frame;
+        return Math.Abs(frameDelta) > float.Epsilon ? (right.value - left.value) / frameDelta : 0f;
+    }
+
+    private static bool AllSlopesAreZero(IReadOnlyList<Hermite> keys)
+    {
+        for (int i = 0; i < keys.Count; i++)
+        {
+            if (!NearlyEqual(keys[i].slope, 0f))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static void SetSlopeType(IEnumerable<Hermite> keys, SlopeType slopeType)
+    {
+        foreach (var key in keys)
+        {
+            key.slopeType = slopeType;
+        }
+    }
+
+    private static bool SameFrame(Hermite left, Hermite right)
+        => NearlyEqual(left.frame, right.frame);
+
+    private static bool SameValue(Hermite left, Hermite right)
+        => NearlyEqual(left.value, right.value);
+
+    private static bool NearlyEqual(float left, float right)
+    {
+        float tolerance = Math.Max(0.0001f, Math.Max(Math.Abs(left), Math.Abs(right)) * 0.0001f);
+        return Math.Abs(left - right) <= tolerance;
     }
 
     private static Hermite CreateKey(AnimationType type)

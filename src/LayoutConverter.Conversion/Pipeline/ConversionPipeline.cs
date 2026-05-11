@@ -119,6 +119,7 @@ public sealed class ConversionPipeline
         log.WriteLine("      .tpl                    Decode supported TPL textures to TGA");
         log.WriteLine("      .brlan                  Reconstruct RLAN XML");
         log.WriteLine("      --merge-anim            Merge multiple splitted BRLANs into one RLAN master");
+        log.WriteLine("      --merge-sequential      Offset merged BRLANs as Start/Loop/End timeline pieces");
         log.WriteLine("      .brlyt                  Reconstruct RLYT XML");
     }
 
@@ -166,7 +167,10 @@ public sealed class ConversionPipeline
                 return ConversionExitCode.InvalidArguments;
             }
 
-            var mergedDoc = LayoutConverter.Core.Brlan.BrlanMergeHelper.MergeSequential(layoutName, inputs);
+            var mergedDoc = LayoutConverter.Core.Brlan.BrlanMergeHelper.Merge(
+                layoutName,
+                inputs,
+                options.Animation.MergeSequentialFrames);
             
             var fullOutPath = Path.GetFullPath(outFilePath);
             Directory.CreateDirectory(Path.GetDirectoryName(fullOutPath)!);

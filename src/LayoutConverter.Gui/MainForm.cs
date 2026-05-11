@@ -17,6 +17,7 @@ public sealed class MainForm : Form
     private readonly CheckBox _bannerCheckBox = new();
     private readonly CheckBox _splitTagsCheckBox = new();
     private readonly CheckBox _mergeAnimCheckBox = new();
+    private readonly CheckBox _mergeSequentialCheckBox = new();
     private readonly CheckBox _omitSameKeyCheckBox = new();
     private readonly CheckBox _omitSameKeyAllCheckBox = new();
     private readonly CheckBox _bakeInfinityCheckBox = new();
@@ -159,6 +160,7 @@ public sealed class MainForm : Form
         AddOption(layout, _xsdValidateCheckBox, "XSD validate", 1, 2);
         AddOption(layout, _suppressCvtrCharCheckBox, "No cvtrchar conversion", 2, 2);
         AddOption(layout, _mergeAnimCheckBox, "Merge BRLANs", 0, 3);
+        AddOption(layout, _mergeSequentialCheckBox, "Sequential merge", 1, 3);
 
         _runButton.Text = "Convert";
         _runButton.Dock = DockStyle.Fill;
@@ -362,6 +364,7 @@ public sealed class MainForm : Form
             Animation = new AnimationRouteOptions
             {
                 MergeAnimations = _mergeAnimCheckBox.Checked,
+                MergeSequentialFrames = _mergeAnimCheckBox.Checked && _mergeSequentialCheckBox.Checked,
                 SplitOutputsByTag = _splitTagsCheckBox.Checked,
                 IncludeTagInfo = true,
                 OmitSameKeyAfterFirstTag = _omitSameKeyCheckBox.Checked,
